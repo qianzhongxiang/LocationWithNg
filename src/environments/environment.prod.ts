@@ -6,7 +6,7 @@ export const environment = {
       // , { class: "icon-deviceInfo", title: "设备详细", code: "deviceInfo", disable: true }
       // , { class: "icon-miscellaneous", title: "杂项", code: "miscellaneous", disable: true }
     ]
-    , taskListSource: { url: "http://223.68.186.220:9100/TK/GetUncompleteTask", responsedData: (d) => d.Data || [] }
+    , taskListSource: { url: "/TK/GetUncompleteTask", responsedData: (d) => d.Data || [] }
   },
   toolbar: {
     items: [{ class: "fa fa-car", title: "车载", code: "incar", color: "#F8A620", visable: true },
