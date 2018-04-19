@@ -68,7 +68,8 @@ export class TaskListComponent implements OnInit, AfterViewInit {
       task: TaskEntity = sender.GetCurrentItems()[0]
     if (!task) return;
     task.Assets.forEach(i => {
-      let component = this.DeviceService.Find(o => `${o.type}_${o.Id}`.toLowerCase() == `${i.Type}_${i.UId}`)[0];
+      let l = `${i.Type}_${i.UId}`.toLowerCase();
+      let component = this.DeviceService.Find(o => `${o.type}_${o.Id}`.toLowerCase() == l)[0];
       if (component) {
         // this.OlMapService.Focus(this.DeviceService.GetPosition(component.Id));
         new Ajax({ url: "/TK/GetTaskLocationInfor", async: false, data: { uid: component.Id, type: component.type }, contentType: "json" }).done(d => {

@@ -72,7 +72,7 @@ export class OlMapService {
         V_XB_Marks_Layer({ hostName: hostName })
         // aMapLayer
       ],
-      view: new ol_View({ center: ol_proj.transform([118.89565229, 32.19354589], 'EPSG:4326', 'EPSG:3857'), zoom: 15 })
+      view: new ol_View({ center: ol_proj.transform([118.8907, 32.19989], 'EPSG:4326', 'EPSG:3857'), zoom: 15 })
     });
 
 
@@ -140,5 +140,9 @@ export class OlMapService {
 
   public Render() {
     this.Map.render()
+  }
+  public Refresh(layer?: ol.layer.Layer) {
+    //TODO refresh all layer in map
+    layer.getSource().refresh();
   }
 }

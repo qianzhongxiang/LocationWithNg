@@ -8,7 +8,7 @@ export abstract class BaseMaterial {
     public static GetPointMaterial(color: string = 'black', title?: string) {
         let res = new Style({
             image: new Circle({
-                radius: 8,
+                radius: 4,
                 snapToPixel: false,
                 fill: new Fill({ color: color }),
                 stroke: new Stroke({
@@ -16,8 +16,9 @@ export abstract class BaseMaterial {
                 })
             }), text: new Text({
                 fill: new Fill({ color: color }),
-                stroke: new Stroke({ color: "white", width: 2 }),
-                font: "Normal 12px Arial"
+                stroke: new Stroke({ color: "white", width: 3 }),
+                font: "Normal 14px Arial",
+
             })
         });
         if (title) res.getText().setText(title);

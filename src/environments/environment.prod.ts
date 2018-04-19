@@ -9,15 +9,15 @@ export const environment = {
     , taskListSource: { url: "/TK/GetUncompleteTask", responsedData: (d) => d.Data || [] }
   },
   toolbar: {
-    items: [{ class: "fa fa-car", title: "车载", code: "incar", color: "#F8A620", visable: true },
-    { class: "fa fa-briefcase", title: "便携", code: "gpstag", color: "#48DE81", visable: true },
-    { class: "fa fa-mobile", title: "手机", code: "cellphone", color: "#2F97F3", visable: true },
+    items: [{ class: "fa fa-car", title: "车载", code: "incar", color: "blue", visable: true },
+    { class: "fa fa-briefcase", title: "便携", code: "gpstag", color: "red", visable: true },
+    { class: "fa fa-mobile", title: "手机", code: "cellphone", color: "green", visable: true },
       // { class: "", title: "离线", code: "offline", visable: true }
     ],
     itemsDetailed: [
-      { class: "", title: "大机", code: "largemachine", visable: true },
+      { class: "", title: "大机", code: "largemachinery", visable: true },
       { class: "", title: "自卸车", code: "dumptruck", visable: true },
-      { class: "", title: "流机", code: "mobilemachine", visable: true },
+      { class: "", title: "流机", code: "mobilemachinery", visable: true },
       { class: "", title: "人员", code: "staff", visable: true }
 
       // { class: "", title: "自卸车", code: "dumptruck", visable: true },

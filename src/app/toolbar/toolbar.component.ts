@@ -1,3 +1,4 @@
+import { GraphicOutInfo } from './../../assets/Component/Graphic';
 import { DeviceService } from './../device.service';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -6,7 +7,7 @@ import { environment } from '../../environments/environment';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import { Extend } from 'vincijs';
-interface ICate { title: string, code: string, visable: boolean }
+interface ICate { title: string, code: string, visable: boolean, count?: number }
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
@@ -26,6 +27,13 @@ export class ToolbarComponent implements OnInit {
     setInterval(() => { this.Timer = new Date().toLocaleTimeString() }, 1000)
     this.Cates = environment.toolbar.items;
     this.CatesDetailed = environment.toolbar.itemsDetailed;
+    this.DeviceService.Bind(this.DeviceService.Events.DeviceUpdate, (msg) => {
+      var value: { data: GraphicOutInfo, type: "new" | "move" } = msg.Value
+      if (value.type == "new") {
+        let c = this.Cates.find(c => c.code == value.data.type.toLowerCase())
+        if (c) c.count = (c.count || 0) + 1;
+      }
+    })
   }
   OpenAdvancedSearch(template: TemplateRef<any>) {
     this.TempCatesDetailed = this.CatesDetailed.map(c => Extend({}, c))
@@ -44,13 +52,18 @@ export class ToolbarComponent implements OnInit {
     }
     this.DeviceService.SetShowItem((gif) => {
       let i = this.AssetService.Get(gif.Id, gif.type)
-      if (!i) return true;
-      let c = i.Category.toLowerCase();
-      let t = i.Type.toLowerCase();
-
-      return this.Cates.find(cate => cate.code == t).visable && this.CatesDetailed.find(cate => cate.code == c).visable;
+      let catedVisable: boolean = true;
+      if (i) {
+        let c = i.Category.toLowerCase();
+        let cated = this.CatesDetailed.find(cate => cate.code == c);
+        catedVisable = (cated ? cated.visable : true);
+      }
+      let t = gif.type.toLowerCase();
+      let cate = this.Cates.find(cate => cate.code == t);
+      let visable = (cate ? cate.visable : true) && catedVisable
+      return visable;
     })
-    this.DeviceService.SetShowItem(types);
+    // this.DeviceService.SetShowItem(types);
   }
 }
 

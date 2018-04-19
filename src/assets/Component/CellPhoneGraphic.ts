@@ -14,8 +14,8 @@ export class CellPhoneGraphic extends Graphic {
     public Buid(position: [number, number], type: string = 'cellphone') {
         return super.Buid(position, type);
     }
-    public GetStyle(color: string = 'green', title?: string) {
-        return super.GetStyle(color, title);
+    public GetStyle(color: string = 'green', title?: string, visable: boolean = true) {
+        return super.GetStyle(color, title, visable);
     }
     public OnMoved(o3d: any, target: [number, number]) {
         super.OnMoved(o3d, target)

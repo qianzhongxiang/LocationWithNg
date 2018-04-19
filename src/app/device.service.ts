@@ -42,23 +42,28 @@ export class DeviceService extends ObserverableWMediator {
   private LastTweens: Object = {}; //{"{Id}":TWEEN.Tween}
   private VectorSource: ol.source.Vector
   private Layer: ol.layer.Vector
-  public Events = { WSOpened: "WSOpened", WSClosed: "WSClosed", TweenStart: "TweenStart" }
+  public Events = { WSOpened: "WSOpened", WSClosed: "WSClosed", TweenStart: "TweenStart", DeviceUpdate: "DeviceUpdate" }
   private HighlightedId: string
   private autoReconnectInterval: number = 5000
   private duration: number = 5000
   public durTimes: number = 1
+  private Filter: (graphic: GraphicOutInfo) => boolean
   constructor() {
     super();
     this.VectorSource = new VertorSource();
     this.Layer = new VertorLayer({
       source: this.VectorSource, style: (feature) => {
-        let f = (feature as ol.Feature), id = f.getId()
-        let s = GetGraphicFactory().GetComponent(f.get("type")).GetStyle(f.get('mainColor'), f.get('name'), this.Coms[id] && this.Coms[id].Visable);
+        let f = (feature as ol.Feature), id = f.getId(), c = this.Coms[id]
+        if (this.Filter && !c.Visable) { c.Visable = this.Filter(c) }
+        let v = c ? c.Visable : false;
+        let s = GetGraphicFactory().GetComponent(f.get("type")).GetStyle(f.get('mainColor'), f.get('name'), v);
         if (this.HighlightedId && this.HighlightedId == id) {
           let c = s.getImage() as ol.style.Circle
           c.getStroke().setColor('yellow');
           s.setZIndex(99);
-          s.getText().getStroke().setColor('red');
+          s.getText().setFont("Normal bold 18px Arial");
+          s.getText().getStroke().setWidth(5)
+          // s.getText().getStroke().setColor('red');
         }
         return s;
       }
@@ -172,6 +177,7 @@ export class DeviceService extends ObserverableWMediator {
           profile.Time = data.CollectTime;
           profile.Location = { x: ps[0], y: ps[1] }
           callback(profile, type);
+          this.SetState(this.Events.DeviceUpdate, { data: profile, type: type })
           if (type == 'new') {
             feature.setProperties({ name: profile.Title })
             feature.setProperties({ mainColor: profile.Color })
@@ -185,20 +191,22 @@ export class DeviceService extends ObserverableWMediator {
     })
     return this;
   }
-  SetShowItem(filter: Array<[string, boolean]> | ((graphic: GraphicOutInfo) => boolean)) {
-    if (filter instanceof Array) {
-      filter.forEach(t => {
-        GetGraphicFactory().GetComponent(t[0]).Visable = t[1];
-        //this.VectorSource.getFeatureById(t[0]).set("visible",t[1]);
-      })
+  SetShowItem(filter: (graphic: GraphicOutInfo) => boolean) {//filter: Array<[string, boolean]> | ((graphic: GraphicOutInfo) => boolean)
+    // if (filter instanceof Array) {
+    //   filter.forEach(t => {
+    //     GetGraphicFactory().GetComponent(t[0]).Visable = t[1];
+    //     //this.VectorSource.getFeatureById(t[0]).set("visible",t[1]);
+    //   })
+    // }
+    // else {
+    this.Filter = filter;
+    for (let c in this.Coms) {
+      let i: GraphicOutInfo = this.Coms[c];
+      i.Visable = filter(i);
     }
-    else {
-      for (let c in this.Coms) {
-        let i: GraphicOutInfo = this.Coms[c];
-        i.Visable = filter(i);
-      }
-    }
-    //TODo update
+    // }
+    //update
+    this.Layer.getSource().refresh();
     return this;
   }
   SendMsg(postData: Object): DeviceService {

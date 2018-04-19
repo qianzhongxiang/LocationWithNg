@@ -8,7 +8,7 @@
     <div class="cate-icon rounded-circle" [style.backgroundColor]="cate.color">
       <i class={{cate.class}}></i>
     </div>
-    <label class="form-check-label" for="{{cate.code}}_checkbox" style="font-size:14px;color:#2c2336;font-weight:bold;">{{cate.title}}</label>
+    <label class="form-check-label" for="{{cate.code}}_checkbox" style="font-size:14px;color:#2c2336;font-weight:bold;">{{cate.title}}({{cate.count||0}})</label>
   </div>
   <div class="form-group border-left px-2 h-100">
     <button class="btn btn-sm" (click)="OpenAdvancedSearch(template)">高级搜索</button>
@@ -36,9 +36,9 @@
       <div class="row">
         <div class="col-sm-4" *ngFor="let cate of TempCates">
           <div class="form-check m-1">
-            <input type="checkbox" [checked]="cate.visable" (change)="cate.visable=!cate.visable" class="form-check-input" id="{{cate.code}}_checkbox"
+            <input type="checkbox" [checked]="cate.visable" (change)="cate.visable=!cate.visable" class="form-check-input" id="t_{{cate.code}}_checkbox"
               style="width:18px;height:18px;" />
-            <label class="form-check-label" for="{{cate.code}}_checkbox" style="font-size:18px;color:#2c2336;font-weight:bold;">{{cate.title}}</label>
+            <label class="form-check-label" for="t_{{cate.code}}_checkbox" style="font-size:18px;color:#2c2336;font-weight:bold;">{{cate.title}}</label>
           </div>
         </div>
       </div>
@@ -46,9 +46,9 @@
       <div class="row">
         <div class="col-sm-4" *ngFor="let cate of TempCatesDetailed">
           <div class="form-check m-1">
-            <input type="checkbox" [checked]="cate.visable" (change)="cate.visable=!cate.visable" class="form-check-input" id="{{cate.code}}_checkbox"
+            <input type="checkbox" [checked]="cate.visable" (change)="cate.visable=!cate.visable" class="form-check-input" id="td_{{cate.code}}_checkbox"
               style="width:14px;height:14px;" />
-            <label class="form-check-label" for="{{cate.code}}_checkbox" style="font-size:14px;color:#2c2336;font-weight:bold;">{{cate.title}}</label>
+            <label class="form-check-label" for="td_{{cate.code}}_checkbox" style="font-size:14px;color:#2c2336;font-weight:bold;">{{cate.title}}</label>
           </div>
         </div>
       </div>
