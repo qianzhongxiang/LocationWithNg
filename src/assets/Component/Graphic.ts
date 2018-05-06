@@ -51,6 +51,7 @@ class GraphicFactory implements IGraphicFactory {
      * @param name  such as "Map" not "MapGraphic"
      */
     GetComponent(name: string): Graphic {
+        if (!name || !this.Types[name]) name = "base";
         name = name.toLowerCase();
         return this.Pool[name] || (this.Pool[name] = new this.Types[name]())
     }

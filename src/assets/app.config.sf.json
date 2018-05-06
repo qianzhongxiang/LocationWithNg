@@ -1,0 +1,40 @@
+{
+    "multiPanelConfiguration": {
+        "items": [],
+        "taskListSource": {
+            "url": "/TK/GetUncompleteTask"
+        }
+    },
+    "toolbar": {
+        "items": [
+            {
+                "class": "fa fa-car",
+                "title": "一般",
+                "code": "sf",
+                "color": "blue",
+                "visable": true
+            }
+        ],
+        "itemsDetailed": []
+    },
+    "map": {
+        "geoServerUrl": "http://192.168.8.62:8080/geoserver",
+        "locationSocketURI": "ws://192.168.8.162:3722",
+        "trackOfComponent": false,
+        "warningService": "",
+        "layers": {
+            "OMS": false,
+            "bg": true,
+            "road": false,
+            "distance": false,
+            "marks": false
+        },
+        "centerPoint": [
+            4.5,
+            -3
+        ],
+        "centerSrs": "EPSG:3857",
+        "srs": "EPSG:3857",
+        "zoom": 24
+    }
+}

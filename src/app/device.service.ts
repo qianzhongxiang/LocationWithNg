@@ -1,3 +1,5 @@
+import { BaseGraphic } from './../assets/Component/BaseGraphic';
+import { AppConfigService } from './app-config.service';
 import { Injectable } from '@angular/core';
 import { IncarGraphic } from './../assets/Component/IncarGraphic';
 import { GPSTagGraphic } from './../assets/Component/GPSTagGraphic';
@@ -8,10 +10,12 @@ import { GetConfigManager, IObseverable, ObserverableWMediator, LogHelper, WebSo
 import VertorSource from 'ol/source/Vector'
 import VertorLayer from 'ol/layer/Vector'
 import ol_proj from 'ol/proj'
-import { environment } from '../environments/environment';
+import { GetProjByEPSG } from '../utilities/olProjConvert';
+
 // import ol_style = require('ol/style/Style')
 // import ol_stroke = require('ol/style/Stroke')
 
+GetGraphicFactory().SetComponent(BaseGraphic);
 GetGraphicFactory().SetComponent(CellPhoneGraphic);
 GetGraphicFactory().SetComponent(GPSTagGraphic);
 GetGraphicFactory().SetComponent(IncarGraphic);
@@ -31,6 +35,16 @@ export interface RequestMsgObject {
   ETime?: Date | string
   UIds?: Array<string>
 }
+interface DataItem {
+  X: number
+  Y: number
+  EPSG: number
+  Type: string
+  CollectTime: string
+  Name: string
+  UniqueId: string
+  Duration: number
+}
 /**
  * manager dependent on TWEEN
  */
@@ -48,7 +62,7 @@ export class DeviceService extends ObserverableWMediator {
   private duration: number = 5000
   public durTimes: number = 1
   private Filter: (graphic: GraphicOutInfo) => boolean
-  constructor() {
+  constructor(private appConfigService: AppConfigService) {
     super();
     this.VectorSource = new VertorSource();
     this.Layer = new VertorLayer({
@@ -56,7 +70,7 @@ export class DeviceService extends ObserverableWMediator {
         let f = (feature as ol.Feature), id = f.getId(), c = this.Coms[id]
         if (this.Filter && !c.Visable) { c.Visable = this.Filter(c) }
         let v = c ? c.Visable : false;
-        let s = GetGraphicFactory().GetComponent(f.get("type")).GetStyle(f.get('mainColor'), f.get('name'), v);
+        let s = GetGraphicFactory().GetComponent(f.get("type")).GetStyle(f.get('mainColor'), f.get('name') || id, v);
         if (this.HighlightedId && this.HighlightedId == id) {
           let c = s.getImage() as ol.style.Circle
           c.getStroke().setColor('yellow');
@@ -139,19 +153,19 @@ export class DeviceService extends ObserverableWMediator {
   DataProcess(callback: (gif: GraphicOutInfo, type: "new" | "move") => void
     , posiConvertor?: (posi: [number, number]) => [number, number]): DeviceService {
     if (this.socket) return this;
-    let url = environment.map.locationSocketURI
+    let url = this.appConfigService.Data.map.locationSocketURI
     this.socket = new WebSocketor({ Url: url });
     this.socket.Open(evt => {
       try {
         let datas = JSON.parse(evt.data), now = new Date();
         for (var i = 0; i < datas.length; i++) {
-          let data = datas[i]
+          let data: DataItem = datas[i]
           if (data.X == 0 && data.Y == 0) continue;
           let graphic = GetGraphicFactory().GetComponent(data.Type);
           let profile: GraphicOutInfo, type: "new" | "move"
           let ps: [number, number] = [data.X, data.Y];
           // ps = coordtransform.wgs84togcj02(ps[0], ps[1]) as [number, number]
-          ps = ol_proj.transform(ps, 'EPSG:4326', 'EPSG:3857')
+          ps = ol_proj.transform(ps, GetProjByEPSG(data.EPSG || 0), 'EPSG:3857')// 'EPSG:4326'
           if (posiConvertor)
             ps = posiConvertor(ps);
           let feature: ol.Feature

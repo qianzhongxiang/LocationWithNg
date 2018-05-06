@@ -1,5 +1,5 @@
-import { environment } from './../../environments/environment';
 import { Component, OnInit } from '@angular/core';
+import { AppConfigService } from '../app-config.service';
 interface CateItem { class: string, title: string, code: string, disable?: boolean }
 
 @Component({
@@ -11,10 +11,10 @@ interface CateItem { class: string, title: string, code: string, disable?: boole
 export class MultiPanelsComponent implements OnInit {
   Items: Array<CateItem>
   SelectedItem: CateItem
-  constructor() { }
+  constructor(private appConfigService: AppConfigService) { }
 
   ngOnInit() {
-    this.Items = environment.multiPanelConfiguration.items;
+    this.Items = this.appConfigService.Data.multiPanelConfiguration.items;
   }
   Select(item: CateItem) {
     if (this.SelectedItem == item) {

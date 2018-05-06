@@ -4,6 +4,7 @@ import { ObserverMsg } from 'vincijs/dist/scripts/Patterns/Observerable';
 import { VinciInput, DataSource, Ajax } from 'vincijs';
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { AppConfigService } from '../../app-config.service';
 interface TaskEntity {
   Name: string
   Assets: Array<{ Type: string, UId: string }>
@@ -22,16 +23,16 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   private VinciInput: VinciInput<{}>
   private DataLoaded: boolean = false;
   @ViewChild("div", { read: ElementRef }) Container: ElementRef
-  constructor(private OlMapService: OlMapService, private DeviceService: DeviceService) { }
+  constructor(private OlMapService: OlMapService, private DeviceService: DeviceService, private appConfigService: AppConfigService) { }
   ngAfterViewInit(): void {
     if (this.DataLoaded) {
       // this.VinciInput.Read()
     }
     this.VinciInput.SetDataSource(new DataSource({
       Read: (p) => {
-        new Ajax({ url: environment.multiPanelConfiguration.taskListSource.url }).done(d => {
+        new Ajax({ url: this.appConfigService.Data.multiPanelConfiguration.taskListSource.url }).done(d => {
           if (!d) return;
-          p.Success(environment.multiPanelConfiguration.taskListSource.responsedData(d))
+          p.Success(environment.responseData(d))
         })
       }
     }))
@@ -55,11 +56,9 @@ export class TaskListComponent implements OnInit, AfterViewInit {
     });
     this.VinciInput.Bind(this.VinciInput.Events.Change, this.SearchChange.bind(this))
     let t: HTMLTableElement = list.querySelector("table");
-    t.style.display = "block";
     t.style.margin = "0";
     let tb: HTMLTableSectionElement = t.querySelector("tbody");
     tb.style.height = "calc(100% - 35px)";
-    tb.style.overflow = "auto";
   }
   private SearchChange(e: ObserverMsg) {
     this.OlMapService.RouteL.getSource().clear();

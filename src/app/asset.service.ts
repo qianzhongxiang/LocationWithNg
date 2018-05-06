@@ -44,7 +44,12 @@ export class AssetService {
     if (!this.Assets) {
       this.GetInfoRemote();
     }
-    return this.Assets.filter(i => i.Type.toLowerCase() == type.toLowerCase() && i.Uid == uid)[0];
+    return this.Assets.filter(i => {
+      if (type)
+        return i.Type.toLowerCase() == type.toLowerCase() && i.Uid == uid
+      else
+        return i.Uid == uid;
+    })[0];
   }
   GetCategorys(): Array<{}> {
     if (!this.Categories)

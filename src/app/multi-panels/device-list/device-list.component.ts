@@ -40,11 +40,9 @@ export class DeviceListComponent implements OnInit, AfterViewInit {
     this.VinciInput.Bind(this.VinciInput.Events.Change, this.SearchChange.bind(this));
 
     let t: HTMLTableElement = list.querySelector("table");
-    t.style.display = "block";
     t.style.margin = "0";
     let tb: HTMLTableSectionElement = t.querySelector("tbody");
     tb.style.height = "calc(100% - 35px)";
-    tb.style.overflow = "auto";
   }
   /**
  * 不会更改类型
@@ -56,13 +54,13 @@ export class DeviceListComponent implements OnInit, AfterViewInit {
     this.OlMapService.RangeL.getSource().clear();
     let component = this.DeviceService.Find(o => `${o.type}_${o.Id}`.toLowerCase() == (e.Value as string))[0];
     if (component) {
+      this.DeviceService.HighLight(component);
       this.OlMapService.Focus(this.DeviceService.GetPosition(component.Id));
       new Ajax({ url: "/TK/GetTaskLocationInfor", data: { uid: component.Id, type: component.type }, contentType: "json" }).done(d => {
         if (d.IsSuccess && d.Data) {
           let p: Parameter = d.Data;
           this.OlMapService.DrawRange(p.Points);
           this.OlMapService.DrawRoute(p.Route);
-          this.DeviceService.HighLight(component);
         }
       });
       // this.sceneM.Render();

@@ -1,10 +1,11 @@
 import { LogHelper, Extend } from 'vincijs';
-import ol_layer_image from 'ol/layer/Image'
+import ol_layer_image from 'ol/layer/Image';
 import ol_source_imageWMS from 'ol/source/ImageWMS'
-export default (options: { hostName: string }): ol.layer.Image => {
+import ol_proj from 'ol/proj'
+export default (options: { hostName: string, groupName: string }): ol.layer.Image => {
     options = Extend(options, { tiled: true })
     return new ol_layer_image({
-        zIndex: 20,
+        zIndex: 50,
         source: new ol_source_imageWMS({
             url: `${options.hostName}/wms`,
             projection: "EPSG:3857",
@@ -12,7 +13,7 @@ export default (options: { hostName: string }): ol.layer.Image => {
                 'FORMAT': 'image/png',
                 'VERSION': '1.1.1',
                 STYLES: '',
-                LAYERS: 'XBLS:Roads'
+                LAYERS: `${options.groupName}:Distance`
             }
         })
     });

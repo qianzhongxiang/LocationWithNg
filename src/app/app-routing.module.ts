@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   { path: '', redirectTo: 'monitor', pathMatch: 'full' },
-  { path: 'monitor', loadChildren: './monitor/monitor.module#MonitorModule' }
+  { path: 'monitor', loadChildren: './monitor/monitor.module#MonitorModule' },
+  { path: 'editor', loadChildren: './modules/map-editor/map-editor.module#MapEditorModule' }
 ];
 
 @NgModule({

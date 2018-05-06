@@ -2,7 +2,7 @@ import { Extend } from 'vincijs';
 import ol_layer_Tile from 'ol/layer/tile';
 import ol_source_tileWMS from 'ol/source/TileWMS'
 import ol_proj from 'ol/proj'
-export default (options: { tiled?: boolean, hostName: string }): ol.layer.Tile => {
+export default (options: { tiled?: boolean, hostName: string, groupName: string }): ol.layer.Tile => {
     options = Extend(options, { tiled: true })
     return new ol_layer_Tile({
         zIndex: 10,
@@ -13,7 +13,7 @@ export default (options: { tiled?: boolean, hostName: string }): ol.layer.Tile =
                 'VERSION': '1.1.1',
                 tiled: options.tiled,
                 STYLES: '',
-                LAYERS: 'XBLS:xb_bg'
+                LAYERS: `${options.groupName}:Bg`
             }
         })
     });

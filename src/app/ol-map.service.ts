@@ -1,5 +1,4 @@
 import { LogHelper } from 'vincijs';
-import { environment } from './../environments/environment';
 import { Injectable } from '@angular/core';
 import { ContextMenu_Super } from './../assets/Tools_OL/ContextMenu_Super';
 import ol_Map from 'ol/map';
@@ -15,18 +14,22 @@ import ol_feature from 'ol/feature';
 import ol_polygon from 'ol/geom/Polygon';
 import ol_lineString from 'ol/geom/LineString';
 import ol_geometry from 'ol/geom/Geometry';
+import ol_draw from 'ol/interaction/Draw'
+import ol_select from 'ol/interaction/Select';
 // import aMapLayer from "./../../Maplayers/AMapLayer";
-import R_XBBG_Layer from "../assets/layers/R_XB_BG_Layer";
-import V_XB_Roads_Layer from "../assets/layers/V_XB_Roads_Layer";
-import V_XB_Distance_Layer from "../assets/layers/V_XB_Distance_Layer";
-import V_XB_Marks_Layer from "../assets/layers/V_XB_Marks_Layer";
+import R_BG_Layer from "../assets/layers/R_BG_Layer";
+import V_Roads_Layer from "../assets/layers/V_Roads_Layer";
+import V_Distance_Layer from "../assets/layers/V_Distance_Layer";
+import V_Marks_Layer from "../assets/layers/V_Marks_Layer";
 import ol_PostionControl from 'ol/control/mouseposition'
+import { AppConfigService } from './app-config.service';
 
 @Injectable()
 export class OlMapService {
   public RouteL: ol.layer.Vector
   public RangeL: ol.layer.Vector
-  constructor() { }
+  private DrawL: ol.layer.Vector
+  constructor(private appConfigService: AppConfigService) { }
   private Map: ol.Map
   private CurrentPointByMouse: [number, number]
   /**
@@ -55,25 +58,32 @@ export class OlMapService {
       this.Map.addControl(control);
   }
   private EnvironmentConfig(element: HTMLElement) {
-    let hostName = environment.map.geoServerUrl;
+    let hostName = this.appConfigService.Data.map.geoServerUrl;
     // let hostName = GetConfigManager().GetConfig("geoServerUrl");
     let control = new ol_PostionControl({ target: document.createElement("div"), projection: "EPSG:3857" });
     control.on('change', (e: ol.events.Event) => {
       // console.log(e);
     });
+
     this.Map = new ol_Map({
       controls: [control],
       target: element,
-      layers: [
-        new ol_layer_Tile({ source: new ol_source_OSM() }),
-        R_XBBG_Layer({ hostName: hostName }),
-        V_XB_Roads_Layer({ hostName: hostName }),
-        V_XB_Distance_Layer({ hostName: hostName }),
-        V_XB_Marks_Layer({ hostName: hostName })
-        // aMapLayer
-      ],
-      view: new ol_View({ center: ol_proj.transform([118.8907, 32.19989], 'EPSG:4326', 'EPSG:3857'), zoom: 15 })
+      // layers: [
+      //   new ol_layer_Tile({ source: new ol_source_OSM() }),
+      //   R_BG_Layer({ hostName: hostName }),
+      //   V_Roads_Layer({ hostName: hostName }),
+      //   V_Distance_Layer({ hostName: hostName }),
+      //   V_Marks_Layer({ hostName: hostName })
+      //   // aMapLayer
+      // ],
+      view: new ol_View({ center: ol_proj.transform(this.appConfigService.Data.map.centerPoint, this.appConfigService.Data.map.centerSrs, 'EPSG:3857'), zoom: this.appConfigService.Data.map.zoom })
     });
+
+    if (this.appConfigService.Data.map.layers.OMS) this.Map.addLayer(new ol_layer_Tile({ source: new ol_source_OSM() }));
+    if (this.appConfigService.Data.map.layers.bg) this.Map.addLayer(R_BG_Layer({ hostName: hostName, groupName: this.appConfigService.Data.map.geoServerGroup }));
+    if (this.appConfigService.Data.map.layers.road) this.Map.addLayer(V_Roads_Layer({ hostName: hostName, groupName: this.appConfigService.Data.map.geoServerGroup }));
+    if (this.appConfigService.Data.map.layers.distance) this.Map.addLayer(V_Distance_Layer({ hostName: hostName, groupName: this.appConfigService.Data.map.geoServerGroup }));
+    if (this.appConfigService.Data.map.layers.marks) this.Map.addLayer(V_Marks_Layer({ hostName: hostName, groupName: this.appConfigService.Data.map.geoServerGroup }));
 
 
     let style = new ol_style({ stroke: new ol_stroke({ width: 6, color: "#04cf87" }) })
@@ -144,5 +154,53 @@ export class OlMapService {
   public Refresh(layer?: ol.layer.Layer) {
     //TODO refresh all layer in map
     layer.getSource().refresh();
+  }
+  public RemoveDrawFeature(feature: ol.Feature) {
+    if (!this.DrawL) return;
+    this.DrawL.getSource().removeFeature(feature);
+  }
+  public SelectDraw(callback: (features: Array<ol.Feature>) => void) {
+    if (!this.DrawL) return;
+    let s = new ol_select();
+    s.on("select", (e: ol.interaction.Select.Event) => {
+      callback(e.selected);
+    })
+    this.Map.addInteraction(s)
+  }
+  /**
+   * 
+   * @param type {"box","linestring","circle","polgon"}
+   * @param callback 
+   */
+  public Draw(type: string, callback: (feature) => void) {
+    let source: ol.source.Vector;
+    if (!this.DrawL) {
+      this.DrawL = new ol_layer_vector({
+        source: (source = new ol_source_vector()),
+        zIndex: 105
+      });
+      this.Map.addLayer(this.DrawL);
+    }
+    else {
+      source = this.DrawL.getSource();
+    }
+    let geometryFunction = undefined;
+    switch (type) {
+      case "box":
+        geometryFunction = ol_draw.createBox();
+        type = "Circle";
+        break;
+    }
+    let draw = new ol_draw({
+      source: source,
+      type: type as ol.geom.GeometryType,
+      geometryFunction: geometryFunction
+    })
+    draw.on("drawend", (e: ol.interaction.Draw.Event) => {
+      let f = e.feature;
+      this.Map.removeInteraction(draw)
+      callback(f);
+    })
+    this.Map.addInteraction(draw)
   }
 }
