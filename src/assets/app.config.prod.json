@@ -73,6 +73,7 @@
         "locationSocketURI": "ws://223.68.186.220:3722",
         "trackOfComponent": false,
         "warningService": "ws://223.68.186.220:3801",
+        "webService": "",
         "layers": {
             "OMS": true,
             "bg": true,

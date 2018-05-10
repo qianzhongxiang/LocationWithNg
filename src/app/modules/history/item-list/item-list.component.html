@@ -1,0 +1,16 @@
+<table class="table table-sm table-hover">
+  <thead>
+    <th>名称</th>
+    <th>终端标识</th>
+    <th>坐标</th>
+    <th>时间</th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of Data" (click)="ItemClick(item)">
+      <td>{{item.Name}}</td>
+      <td>{{item.Uid}}</td>
+      <td>{{item.X}},{{item.Y}}</td>
+      <td>{{item.CollectTime}}</td>
+    </tr>
+  </tbody>
+</table>

@@ -133,6 +133,7 @@ export class OlMapService {
   public GetCoordinate(e: Event): [number, number] {
     return this.Map.getEventCoordinate(e);
   }
+
   public Helper(helper?: Object) {
   }
 
@@ -159,8 +160,13 @@ export class OlMapService {
     if (!this.DrawL) return;
     this.DrawL.getSource().removeFeature(feature);
   }
-  public SelectDraw(callback: (features: Array<ol.Feature>) => void) {
+
+  public SelectDraw(callback: (features: Array<ol.Feature>) => void, id: string = "1") {
     if (!this.DrawL) return;
+    let interactions = this.Map.getInteractions()
+      , items = interactions.getArray().filter(i => i.get("levelId") == id);
+    if (items)
+      items.forEach(i => this.Map.removeInteraction(i));
     let s = new ol_select();
     s.on("select", (e: ol.interaction.Select.Event) => {
       callback(e.selected);
@@ -169,10 +175,10 @@ export class OlMapService {
   }
   /**
    * 
-   * @param type {"box","linestring","circle","polgon"}
+   * @param type {"Box","LineString","Circle","Polgon"}
    * @param callback 
    */
-  public Draw(type: string, callback: (feature) => void) {
+  public Draw(type: string, callback: (feature) => void, id: string = "1") {
     let source: ol.source.Vector;
     if (!this.DrawL) {
       this.DrawL = new ol_layer_vector({
@@ -184,9 +190,13 @@ export class OlMapService {
     else {
       source = this.DrawL.getSource();
     }
+    let interactions = this.Map.getInteractions()
+      , items = interactions.getArray().filter(i => i.get("levelId") == id);
+    if (items)
+      items.forEach(i => this.Map.removeInteraction(i));
     let geometryFunction = undefined;
     switch (type) {
-      case "box":
+      case "Box":
         geometryFunction = ol_draw.createBox();
         type = "Circle";
         break;
@@ -196,11 +206,13 @@ export class OlMapService {
       type: type as ol.geom.GeometryType,
       geometryFunction: geometryFunction
     })
+    draw.set("levelId", id)
     draw.on("drawend", (e: ol.interaction.Draw.Event) => {
       let f = e.feature;
       this.Map.removeInteraction(draw)
       callback(f);
     })
+
     this.Map.addInteraction(draw)
   }
 }

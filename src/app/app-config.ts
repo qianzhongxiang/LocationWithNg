@@ -30,6 +30,7 @@ export interface AppConfig {
         "locationSocketURI"?: string,
         "trackOfComponent"?: boolean,
         "warningService"?: string,
+        "webService"?: string,
         "layers"?: {
             "OMS"?: boolean
             "bg"?: boolean,

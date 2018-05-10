@@ -1,14 +1,8 @@
 import { environment } from './../environments/environment';
 import { Injectable } from '@angular/core';
 import { Ajax } from 'vincijs';
-interface AssetInfo {
-  Uid: string
-  Title: string
-  Color: string
-  Type: string
-  Type_Id?: string
-  Category: string
-}
+import { AssetInfo } from '../utilities/entities';
+
 @Injectable()
 export class AssetService {
   private Categories: Array<{ Title: string, Code: string }>

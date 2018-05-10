@@ -22,6 +22,7 @@
         "locationSocketURI": "ws://192.168.8.162:3722",
         "trackOfComponent": false,
         "warningService": "",
+        "webService": "http://192.168.8.162:3728",
         "layers": {
             "OMS": false,
             "bg": true,
@@ -35,6 +36,7 @@
         ],
         "centerSrs": "EPSG:3857",
         "srs": "EPSG:3857",
+        "geoServerGroup": "LS",
         "zoom": 24
     }
 }
