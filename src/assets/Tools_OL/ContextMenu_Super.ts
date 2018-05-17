@@ -1,13 +1,13 @@
 import olContext from 'ol-contextmenu'
 // const css = require('ol-contextmenu/dist/ol-contextmenu.min.css')
-interface ContextMenuItem {
+export interface ContextMenuItem {
     text: string
     icon?: string
     classname?: string
     callback: () => void
     items?: Array<ContextMenuItem>
 }
-interface ContextMenuOptions {
+export interface ContextMenuOptions {
     items: Array<ContextMenuItem>
     width?: number
     onOpen?: (evt: { pixel }) => void

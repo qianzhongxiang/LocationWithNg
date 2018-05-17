@@ -4,8 +4,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { AppConfig } from './app-config';
 
-export function setupAppCofigServiceFactory(appConfig: AppConfigService) {
+export function setupAppCofigServiceFactory(appConfig: AppConfigService): () => Promise<AppConfig> {
   return () => appConfig.Load();
 }
 

@@ -27,6 +27,10 @@ export interface AppConfig {
     },
     "map"?: {
         "geoServerUrl"?: string,
+        "wsType"?: string,
+        "mqttTopic"?: string,
+        "mqttUser"?: string,
+        "mqttPd"?: string,
         "locationSocketURI"?: string,
         "trackOfComponent"?: boolean,
         "warningService"?: string,

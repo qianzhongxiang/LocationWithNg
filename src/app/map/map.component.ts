@@ -13,13 +13,8 @@ export class MapComponent implements OnInit {
   @ViewChild("div", { read: ElementRef }) container: ElementRef
   private TrackOfComponent: boolean
   constructor(public OlMapService: OlMapService, @Optional() private DeviceService: DeviceService, @Optional() private AssetService: AssetService, private appConfigService: AppConfigService) { }
-
-  ngOnInit() {
-    this.TrackOfComponent = this.appConfigService.Data.map.trackOfComponent;
-    this.OlMapService.Init({ target: this.container.nativeElement })
+  public DataProcess() {
     if (this.DeviceService) {
-      this.OlMapService.AddLayer(this.DeviceService.GetLayer());
-      this.DeviceService.Bind(this.DeviceService.Events.WSOpened, this.InitWSType.bind(this))
       this.DeviceService.DataProcess((gif, type) => {
         if (type == "new") {
           let info = this.AssetService ? this.AssetService.Get(gif.Id, gif.type) : undefined;
@@ -40,6 +35,14 @@ export class MapComponent implements OnInit {
         }
         // this.Business.Update(type, gif);
       })
+    }
+  }
+  ngOnInit() {
+    this.TrackOfComponent = this.appConfigService.Data.map.trackOfComponent;
+    this.OlMapService.Init({ target: this.container.nativeElement })
+    if (this.DeviceService) {
+      this.OlMapService.AddLayer(this.DeviceService.GetLayer());
+      this.DeviceService.Bind(this.DeviceService.Events.WSOpened, this.InitWSType.bind(this))
     }
   }
   protected SendMsg(obj: RequestMsgObject) {

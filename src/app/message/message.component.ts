@@ -2,7 +2,7 @@ import { AppConfigService } from './../app-config.service';
 import { AssetService } from './../asset.service';
 import { Component, OnInit } from '@angular/core';
 import { WebSocketor, LogHelper } from 'vincijs';
-interface WarningEntity {
+export interface WarningEntity {
   WarningType: { Code: string, Description: string, Name: string }
   Task_Assets: { TerminalType: { Description: string }, UniqueidGPSTerminal: string }
   AssetName: string

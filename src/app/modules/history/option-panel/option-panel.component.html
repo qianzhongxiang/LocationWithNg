@@ -1,18 +1,32 @@
-<div class="form">
+<div class="form container">
   <div class="form-group">
     <label for="selectDevice">{{CurrentDevice?CurrentDevice.Title:"请选择设备"}}</label>
-    <button id="selectDevice" (click)="">选择设备</button>
+    <button id="selectDevice" class="btn btn-primary" (click)="SelectDeive();">选择设备</button>
   </div>
   <div class="form-group">
-    开始时间：
-    <input type="datetime" />
+    <label for="op_sTime">开始时间：</label>
+    <input type="datetime-local" id="op_sTime" class="form-control form-control-sm" [value]="STime" (change)="STime=$event.target.value"
+    />
   </div>
   <div class="form-group">
-    结束时间：
-    <input type="datetime" />
+    <label for="op_eTime">结束时间：</label>
+    <input type="datetime-local" id="op_eTime" class="form-control form-control-sm" [value]="ETime" (change)="ETime=$event.target.value"
+    />
   </div>
   <div class="form-group">
-    <button (click)="Search()"></button>
+    <button (click)="Search();" class="btn">搜索</button>
+  </div>
+</div>
+<div class="border"></div>
+<div class="container">
+  <div class="">
+    <button class="btn " (click)="Resume()">go
+      <i class=""></i>
+    </button>
+    <button class="btn " (click)="Stop()">stop
+      <i class=""></i>
+    </button>
+
   </div>
 </div>
 <div class="form-group">

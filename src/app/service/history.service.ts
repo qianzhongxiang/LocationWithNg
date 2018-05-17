@@ -8,21 +8,32 @@ export class HistoryService {
   constructor(private config: AppConfigService) { }
   private callbacks: Array<(data: Array<DataItem>) => void> = []
   private currentUpdates: Array<(item: DataItem, index: number) => void> = []
-  private interval: number = 5000;
+  private interval: number = 2000;
   private intervalFlag: number
-  private data: Array<DataItem>
+  public Data: Array<DataItem>
+  private currentIndex: number = 0
   public Subscribe(callback?: (data: Array<DataItem>) => void, currentUpdate?: (item: DataItem, index: number) => void) {
     if (callback) this.callbacks.push(callback);
     if (currentUpdate) this.currentUpdates.push(currentUpdate);
   }
-
-  private Launch(index: number = 0) {
-    if (!this.data) return;
-    if (this.intervalFlag) window.clearInterval(this.intervalFlag);
-    this.intervalFlag = window.setInterval(i => {
-      this.currentUpdates.forEach(c => c(this.data[index], i));
+  public SetInterval(interval: number) {
+    this.interval = interval;
+  }
+  public SetCurrentIndex(index: number) {
+    this.currentIndex = index;
+  }
+  public Launch(index: number = this.currentIndex) {
+    if (!this.Data) return;
+    this.Stop();
+    let i = index;
+    this.intervalFlag = window.setInterval(() => {
+      if (this.Data.length < (i + 1)) return;
+      this.currentUpdates.forEach(c => c(this.Data[index], i));
       i++;
-    }, this.interval, index);
+    }, this.interval);
+  }
+  public Stop() {
+    if (this.intervalFlag) window.clearInterval(this.intervalFlag);
   }
   /**
    * 获取历史数据 通过jsonp
@@ -34,16 +45,28 @@ export class HistoryService {
    */
   public GetData(uid: string, type: string, sTime: Date, eTime: Date, callback?: (data: Array<DataItem>) => void) {
     let res: Location;
-    let url = this.config.Data.map.webService + `/LocGet?callback=?`
+    let url = this.config.Data.map.webService + `/HistoryGet?callback=?`
+    this.Data = [];
+    // let postdata = { uid: uid, type: type, stime: sTime.toISOString(), etime: eTime.toISOString(), index: 1, count: 200 };
+    let postdata = { uid: "352544071943238", type: "SF", stime: sTime.toISOString(), etime: eTime.toISOString(), index: 1, count: 200 };
+    let cb = ((d) => {
+      if (typeof d === "string") d = JSON.parse(d);
+      this.Data = this.Data.concat(d);
+      if (callback) callback(d);
+      this.callbacks.forEach(c => c(d));
+      if ((d as Array<any>).length >= postdata.count) {
+        postdata.index++;
+        this.Jsonp(url, postdata, cb)
+      }
+    }).bind(this);
+    this.Jsonp(url, postdata, cb)
+    this.Launch();
+  }
+  private Jsonp(url: string, data: any, callback: (data: Array<DataItem>) => void) {
     jQuery.ajax(url, {
-      type: "GET", dataType: "jsonp", data: { uid: uid, type: type }, success: (d) => {
-        if (typeof d === "string") d = JSON.parse(d);
-        if (callback) callback(d);
-        this.callbacks.forEach(c => c(d));
-      }, error: (xhr, s, e) => {
+      type: "GET", dataType: "jsonp", data: data, success: callback, error: (xhr, s, e) => {
         console.log("err")
       }
     })
-
   }
 }

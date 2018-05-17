@@ -107,24 +107,38 @@ export class OlMapService {
     // });
   }
 
-  public DrawRoute(route: string | Array<{ X: number, Y: number }>) {
+  public DrawRoute(route: string | Array<{ X: number, Y: number }> | ol.Feature, epsg: string = "EPSG:4326") {
+    if (route instanceof ol_feature) {
+      this.RouteL.getSource().addFeature(route);
+      return;
+    }
     let points: Array<{ X: number, Y: number }>;
     if (typeof route === 'string') points = JSON.parse(route);
-    else points = route;
+    else
+      points = route;
     if (points) {
       let pointArray: Array<[number, number]> = [];
       points.forEach(p => {
-        pointArray.push(ol_proj.transform([p.X, p.Y], "EPSG:4326", "EPSG:3857"));
+        pointArray.push(ol_proj.transform([p.X, p.Y], epsg, "EPSG:3857"));
       });
       let feature = new ol_feature(new ol_lineString(pointArray))
       this.RouteL.getSource().addFeature(feature);
     } else LogHelper.Error("DrawRoute():route is invalid")
   }
-  public DrawRange(ps: Array<{ X: number, Y: number }>) {
+  /**
+   * 画区域
+   * @param ps 
+   * @param epsg 
+   */
+  public DrawRange(ps: Array<{ X: number, Y: number }> | ol.Feature, epsg: string = "EPSG:4326") {
+    if (ps instanceof ol_feature) {
+      this.RangeL.getSource().addFeature(ps);
+      return;
+    }
     if (ps) {
       let source = this.RangeL.getSource();
       let a: Array<[number, number]> = [];
-      ps.forEach(p => a.push(ol_proj.transform([p.X, p.Y], "EPSG:4326", "EPSG:3857")))
+      ps.forEach(p => a.push(ol_proj.transform([p.X, p.Y], epsg, "EPSG:3857")))
       let feature = new ol_feature(new ol_polygon([a]))
       source.addFeature(feature);
     } else LogHelper.Error(`DrawRange():ps is null`)
@@ -144,7 +158,10 @@ export class OlMapService {
     this.EnvironmentConfig(data.target);// this.EnvironmentConfig( ....);
     // this.Render();
   }
-
+  /**
+   * 设置地图中心点
+   * @param point 
+   */
   public Focus(point: [number, number]) {
     this.Map.getView().setCenter(point);
   }
@@ -152,6 +169,10 @@ export class OlMapService {
   public Render() {
     this.Map.render()
   }
+  /**
+   * 刷新特定图层
+   * @param layer 
+   */
   public Refresh(layer?: ol.layer.Layer) {
     //TODO refresh all layer in map
     layer.getSource().refresh();
@@ -161,7 +182,7 @@ export class OlMapService {
     this.DrawL.getSource().removeFeature(feature);
   }
 
-  public SelectDraw(callback: (features: Array<ol.Feature>) => void, id: string = "1") {
+  public SelectDraw(callback: (features: Array<ol.Feature>) => void, id: string = "1"): ol.interaction.Interaction {
     if (!this.DrawL) return;
     let interactions = this.Map.getInteractions()
       , items = interactions.getArray().filter(i => i.get("levelId") == id);
@@ -172,13 +193,14 @@ export class OlMapService {
       callback(e.selected);
     })
     this.Map.addInteraction(s)
+    return s;
   }
   /**
    * 
    * @param type {"Box","LineString","Circle","Polgon"}
    * @param callback 
    */
-  public Draw(type: string, callback: (feature) => void, id: string = "1") {
+  public Draw(type: string, callback: (feature) => void, id: string = "1"): ol.interaction.Interaction {
     let source: ol.source.Vector;
     if (!this.DrawL) {
       this.DrawL = new ol_layer_vector({
@@ -214,5 +236,6 @@ export class OlMapService {
     })
 
     this.Map.addInteraction(draw)
+    return draw;
   }
 }

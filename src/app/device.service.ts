@@ -12,6 +12,7 @@ import VertorLayer from 'ol/layer/Vector'
 import ol_proj from 'ol/proj'
 import { GetProjByEPSG } from '../utilities/olProjConvert';
 import { DataItem } from '../utilities/entities';
+import * as mqtt from 'mqtt'
 
 // import ol_style = require('ol/style/Style')
 // import ol_stroke = require('ol/style/Stroke')
@@ -154,20 +155,50 @@ export class DeviceService extends ObserverableWMediator {
    */
   DataProcess(callback: (gif: GraphicOutInfo, type: "new" | "move") => void
     , posiConvertor?: (posi: [number, number]) => [number, number]): DeviceService {
-    //TODO verify config.type
-    if (this.socket) return this;
+    let type = this.appConfigService.Data.map.wsType;
     let url = this.appConfigService.Data.map.locationSocketURI
-    this.socket = new WebSocketor({ Url: url });
-    this.socket.Open(evt => {
-      try {
-        let datas = JSON.parse(evt.data);
-        this.Resolve(datas, callback, posiConvertor)
-      } catch (error) {
-        LogHelper.Error(error)
-      }
-    }, () => {
-      this.SetState(this.Events.WSOpened, this.socket);
-    })
+    switch (type) {
+      case "ws":
+        if (this.socket) return this;
+        this.socket = new WebSocketor({ Url: url });
+        this.socket.Open(evt => {
+          try {
+            let datas = JSON.parse(evt.data);
+            this.Resolve(datas, callback, posiConvertor)
+          } catch (error) {
+            LogHelper.Error(error)
+          }
+        }, () => {
+          this.SetState(this.Events.WSOpened, this.socket);
+        })
+        break;
+      case "mqtt":
+        let topic = this.appConfigService.Data.map.mqttTopic
+          , user = this.appConfigService.Data.map.mqttUser
+          , pd = this.appConfigService.Data.map.mqttPd
+          , client = mqtt.connect(url, { username: user, password: pd })
+        // , client = mqtt.connect(undefined, { username: user, password: pd, hostname: "192.168.8.64", port: 61623 })
+
+        client.on('connect', () => {
+          client.subscribe('presence')
+          // client.publish('presence', 'Hello mqtt')
+        })
+
+        client.on('message', (topic, message) => {
+          // message is Buffer
+          var str = message.toString()
+          // console.log(str)
+          try {
+            let datas = JSON.parse(str);
+            this.Resolve([datas], callback, posiConvertor)
+          } catch (error) {
+            LogHelper.Error(error)
+          }
+        })
+        client.subscribe(topic, { qos: 0 })
+        break
+    }
+
     return this;
   }
   public Resolve(datas: Array<DataItem>, callback: (gif: GraphicOutInfo, type: "new" | "move") => void

@@ -5,7 +5,7 @@ import { Http } from '@angular/http';
 import { environment } from '../environments/environment';
 @Injectable()
 export class AppConfigService {
-  private default: AppConfig = { map: { geoServerGroup: "SL" } }
+  private default: AppConfig = { map: { geoServerGroup: "SL", wsType: "ws" } }
   public Data: AppConfig
   constructor(private http: Http) { }
 

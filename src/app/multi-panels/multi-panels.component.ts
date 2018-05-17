@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppConfigService } from '../app-config.service';
-interface CateItem { class: string, title: string, code: string, disable?: boolean }
+export interface CateItem { class: string, title: string, code: string, disable?: boolean }
 
 @Component({
   selector: 'app-multi-panels',
