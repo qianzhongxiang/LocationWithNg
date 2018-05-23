@@ -26,9 +26,23 @@ import { AppConfigService } from './app-config.service';
 
 @Injectable()
 export class OlMapService {
-  public RouteL: ol.layer.Vector
-  public RangeL: ol.layer.Vector
+  private RouteL: ol.layer.Vector
+  private RangeL: ol.layer.Vector
   private DrawL: ol.layer.Vector
+  /**
+   * 获取矢量图层
+   * @param type "route|range|draw"
+   */
+  public GetVectorLayer(type: string): ol.layer.Vector {
+    switch (type) {
+      case "route":
+        return this.RouteL;
+      case "range":
+        return this.RangeL;
+      case "draw":
+        return this.DrawL;
+    }
+  }
   constructor(private appConfigService: AppConfigService) { }
   private Map: ol.Map
   private CurrentPointByMouse: [number, number]
@@ -107,10 +121,10 @@ export class OlMapService {
     // });
   }
 
-  public DrawRoute(route: string | Array<{ X: number, Y: number }> | ol.Feature, epsg: string = "EPSG:4326") {
+  public DrawRoute(route: string | Array<{ X: number, Y: number }> | ol.Feature, epsg: string = "EPSG:4326"): ol.Feature {
     if (route instanceof ol_feature) {
       this.RouteL.getSource().addFeature(route);
-      return;
+      return route;
     }
     let points: Array<{ X: number, Y: number }>;
     if (typeof route === 'string') points = JSON.parse(route);
@@ -123,6 +137,7 @@ export class OlMapService {
       });
       let feature = new ol_feature(new ol_lineString(pointArray))
       this.RouteL.getSource().addFeature(feature);
+      return feature;
     } else LogHelper.Error("DrawRoute():route is invalid")
   }
   /**
@@ -130,10 +145,10 @@ export class OlMapService {
    * @param ps 
    * @param epsg 
    */
-  public DrawRange(ps: Array<{ X: number, Y: number }> | ol.Feature, epsg: string = "EPSG:4326") {
+  public DrawRange(ps: Array<{ X: number, Y: number }> | ol.Feature, epsg: string = "EPSG:4326"): ol.Feature {
     if (ps instanceof ol_feature) {
       this.RangeL.getSource().addFeature(ps);
-      return;
+      return ps;
     }
     if (ps) {
       let source = this.RangeL.getSource();
@@ -141,6 +156,7 @@ export class OlMapService {
       ps.forEach(p => a.push(ol_proj.transform([p.X, p.Y], epsg, "EPSG:3857")))
       let feature = new ol_feature(new ol_polygon([a]))
       source.addFeature(feature);
+      return feature;
     } else LogHelper.Error(`DrawRange():ps is null`)
   }
 
@@ -177,13 +193,19 @@ export class OlMapService {
     //TODO refresh all layer in map
     layer.getSource().refresh();
   }
-  public RemoveDrawFeature(feature: ol.Feature) {
-    if (!this.DrawL) return;
-    this.DrawL.getSource().removeFeature(feature);
+  /**
+   * 
+   * @param feature 
+   * @param layer optional 
+   */
+  public RemoveDrawFeature(feature: ol.Feature, layer?: ol.layer.Vector) {
+    if (!layer) layer = this.DrawL;
+    if (!layer) return;
+    layer.getSource().removeFeature(feature);
   }
 
   public SelectDraw(callback: (features: Array<ol.Feature>) => void, id: string = "1"): ol.interaction.Interaction {
-    if (!this.DrawL) return;
+    // if (!this.DrawL) return;
     let interactions = this.Map.getInteractions()
       , items = interactions.getArray().filter(i => i.get("levelId") == id);
     if (items)
@@ -197,15 +219,18 @@ export class OlMapService {
   }
   /**
    * 
-   * @param type {"Box","LineString","Circle","Polgon"}
+   * @param type {"Box","LineString","Circle","Polygon"}
    * @param callback 
+   * @param style 
+   * @param id 
    */
-  public Draw(type: string, callback: (feature) => void, id: string = "1"): ol.interaction.Interaction {
+  public Draw(type: string, callback: (feature) => void, style?: ol.style.Style, id: string = "1"): ol.interaction.Interaction {
     let source: ol.source.Vector;
     if (!this.DrawL) {
       this.DrawL = new ol_layer_vector({
         source: (source = new ol_source_vector()),
-        zIndex: 105
+        zIndex: 105,
+        style: style
       });
       this.Map.addLayer(this.DrawL);
     }

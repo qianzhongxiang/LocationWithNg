@@ -61,8 +61,8 @@ export class TaskListComponent implements OnInit, AfterViewInit {
     tb.style.height = "calc(100% - 35px)";
   }
   private SearchChange(e: ObserverMsg) {
-    this.OlMapService.RouteL.getSource().clear();
-    this.OlMapService.RangeL.getSource().clear();
+    this.OlMapService.GetVectorLayer('route').getSource().clear();
+    this.OlMapService.GetVectorLayer('range').getSource().clear();
     let sender = e.Sender as VinciInput<any>,
       task: TaskEntity = sender.GetCurrentItems()[0]
     if (!task) return;

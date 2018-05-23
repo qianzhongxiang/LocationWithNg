@@ -11,6 +11,7 @@ import { OptionPanelComponent } from './option-panel/option-panel.component';
 import { MapComponent } from '../../map/map.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { DeviceService } from '../../device.service';
+import { ScriptServiceService } from '../../service/script-service.service';
 
 @NgModule({
   imports: [

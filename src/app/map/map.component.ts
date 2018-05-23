@@ -12,7 +12,7 @@ import { Component, OnInit, ViewChild, ElementRef, Optional } from '@angular/cor
 export class MapComponent implements OnInit {
   @ViewChild("div", { read: ElementRef }) container: ElementRef
   private TrackOfComponent: boolean
-  constructor(public OlMapService: OlMapService, @Optional() private DeviceService: DeviceService, @Optional() private AssetService: AssetService, private appConfigService: AppConfigService) { }
+  constructor(private OlMapService: OlMapService, @Optional() private DeviceService: DeviceService, @Optional() private AssetService: AssetService, private appConfigService: AppConfigService) { }
   public DataProcess() {
     if (this.DeviceService) {
       this.DeviceService.DataProcess((gif, type) => {

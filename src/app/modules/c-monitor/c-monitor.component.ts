@@ -1,3 +1,4 @@
+import { AssetService } from './../../asset.service';
 import { DeviceService } from './../../device.service';
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { OlMapService } from '../../ol-map.service';
@@ -13,7 +14,7 @@ export class CMonitorComponent implements OnInit, AfterViewInit {
   private map: MapComponent
   @ViewChild(MapComponent, { read: ElementRef })
   private mapElement: ElementRef
-  constructor(private ScriptServiceService: ScriptServiceService, private OlMapService: OlMapService, private DeviceService: DeviceService) { }
+  constructor(private ScriptServiceService: ScriptServiceService, private OlMapService: OlMapService, private DeviceService: DeviceService, private AssetService: AssetService) { }
 
   ngOnInit() {
   }
@@ -21,7 +22,7 @@ export class CMonitorComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.map.DataProcess();
     this.ScriptServiceService.load("cmonitor").then(() => {
-      new window["MapMonitor"](this.mapElement.nativeElement, this.map.OlMapService);
+      new window["MapMonitor"](this.mapElement.nativeElement, this.OlMapService, this.DeviceService, this.AssetService);
     })
   }
 }

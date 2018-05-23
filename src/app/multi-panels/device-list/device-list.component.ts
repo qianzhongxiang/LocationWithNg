@@ -50,8 +50,8 @@ export class DeviceListComponent implements OnInit, AfterViewInit {
  */
 
   private SearchChange(e: ObserverMsg) {
-    this.OlMapService.RouteL.getSource().clear();
-    this.OlMapService.RangeL.getSource().clear();
+    this.OlMapService.GetVectorLayer('route').getSource().clear();
+    this.OlMapService.GetVectorLayer('range').getSource().clear();
     let component = this.DeviceService.Find(o => `${o.type}_${o.Id}`.toLowerCase() == (e.Value as string))[0];
     if (component) {
       this.DeviceService.HighLight(component);

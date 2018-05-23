@@ -20,7 +20,10 @@ export class ScriptServiceService {
       };
     });
   }
-
+  /**
+   * 
+   * @param scripts [editor|cmonitor]
+   */
   load(...scripts: string[]) {
     var promises: any[] = [];
     scripts.forEach((script) => promises.push(this.loadScript(script)));

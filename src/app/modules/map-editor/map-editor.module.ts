@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MapEditorComponent } from './map-editor.component';
 import { MapEditorRoutingModule } from './/map-editor-routing.module';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { ScriptServiceService } from '../../service/script-service.service';
 
 @NgModule({
   imports: [
@@ -13,7 +14,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     ModalModule.forRoot()
   ],
   declarations: [MapEditorComponent, MapComponent],
-  providers: [OlMapService]
+  providers: [OlMapService, ScriptServiceService]
   // bootstrap: [MapEditorComponent]
 })
 export class MapEditorModule { }
