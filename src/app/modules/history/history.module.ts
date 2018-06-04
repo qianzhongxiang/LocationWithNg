@@ -1,6 +1,4 @@
-import { AssetService } from './../../asset.service';
-import { HistoryService } from './../../service/history.service';
-import { OlMapService } from './../../ol-map.service';
+import { MapModule, OlMapService, AssetService, DeviceService, HistoryService } from 'cloudy-location';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -8,18 +6,27 @@ import { HistoryRoutingModule } from './history-routing.module';
 import { HistoryComponent } from './history.component';
 import { ItemListComponent } from './item-list/item-list.component';
 import { OptionPanelComponent } from './option-panel/option-panel.component';
-import { MapComponent } from '../../map/map.component';
-import { ModalModule } from 'ngx-bootstrap/modal';
-import { DeviceService } from '../../device.service';
-import { ScriptServiceService } from '../../service/script-service.service';
+import { AppConfigService } from '../../app-config.service';
 
 @NgModule({
   imports: [
     CommonModule,
     HistoryRoutingModule,
-    ModalModule.forRoot()
+    MapModule
   ],
-  declarations: [HistoryComponent, ItemListComponent, OptionPanelComponent, MapComponent],
-  providers: [OlMapService, HistoryService, AssetService, DeviceService]
+  declarations: [HistoryComponent, ItemListComponent, OptionPanelComponent],
+  providers: [{
+    provide: OlMapService,
+    useFactory: (appConfig: AppConfigService) => {
+      let a = new OlMapService(); a.Init(appConfig.Data.map);
+      return a;
+    }, deps: [AppConfigService]
+  }, {
+    provide: HistoryService,
+    useFactory: (appConfig: AppConfigService) => {
+      let a = new HistoryService(); a.Init(appConfig.Data.map);
+      return a;
+    }, deps: [AppConfigService]
+  }, AssetService, DeviceService]
 })
 export class HistoryModule { }

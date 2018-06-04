@@ -9,7 +9,7 @@ app-history-item-list{
     height: 220px;
     background-color: #fff;
 }
-app-map{
+cl-map{
     height: 100vh;
     width: calc(100% - 260px);
 }

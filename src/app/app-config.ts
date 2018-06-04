@@ -7,7 +7,31 @@ export interface ICate {
     "mp": boolean,
     "count": number
 }
+export interface MapConifg {
+    "geoServerUrl"?: string,
+    "wsType"?: string,
+    "mqttTopic"?: string,
+    "mqttUser"?: string,
+    "mqttPd"?: string,
+    "locationSocketURI"?: string,
+    "trackOfComponent"?: boolean,
+    "warningService"?: string,
+    "webService"?: string,
+    "layers"?: {
+        "OMS"?: boolean,
+        "bg"?: boolean,
+        "road"?: boolean,
+        "distance"?: boolean,
+        "marks"?: boolean
+    },
+    "centerPoint"?: Array<number>,
+    "centerSrs"?: string
+    "srs"?: string,
+    "zoom"?: number,
+    "geoServerGroup"?: string
+}
 export interface AppConfig {
+    "asset-profile-url"?: string
     "multiPanelConfiguration"?: {
         "items": Array<
         {
@@ -25,28 +49,5 @@ export interface AppConfig {
         "items": Array<ICate>,
         "itemsDetailed": Array<ICate>
     },
-    "map"?: {
-        "geoServerUrl"?: string,
-        "wsType"?: string,
-        "mqttTopic"?: string,
-        "mqttUser"?: string,
-        "mqttPd"?: string,
-        "locationSocketURI"?: string,
-        "trackOfComponent"?: boolean,
-        "warningService"?: string,
-        "webService"?: string,
-        "layers"?: {
-            "OMS"?: boolean
-            "bg"?: boolean,
-            "road"?: boolean,
-            "distance"?: boolean,
-            "marks"?: boolean
-        },
-        "centerPoint"?: Array<number>,
-        "centerSrs"?: string
-        "srs"?: string,
-        "zoom"?: number,
-        "geoServerGroup"?: string
-    }
-
+    "map"?: MapConifg
 }

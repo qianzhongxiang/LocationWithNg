@@ -1,10 +1,9 @@
-import { DeviceService } from './../../device.service';
-import { OlMapService } from './../../ol-map.service';
 import { ObserverMsg } from 'vincijs/dist/scripts/Patterns/Observerable';
 import { VinciInput, DataSource, Ajax } from 'vincijs';
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { AppConfigService } from '../../app-config.service';
+import { OlMapService, DeviceService } from 'cloudy-location';
 interface TaskEntity {
   Name: string
   Assets: Array<{ Type: string, UId: string }>

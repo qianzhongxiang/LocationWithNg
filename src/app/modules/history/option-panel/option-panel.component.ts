@@ -1,8 +1,7 @@
-import { HistoryService } from './../../../service/history.service';
 import { AssetInfo } from './../../../../utilities/entities';
 import { Component, OnInit } from '@angular/core';
 import { VinciTable, DataSource, VinciWindow } from 'vincijs';
-import { AssetService } from '../../../asset.service';
+import { AssetService, HistoryService } from 'cloudy-location';
 
 @Component({
   selector: 'app-history-option-panel',

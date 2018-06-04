@@ -1,9 +1,7 @@
-import { DeviceService } from './../../../device.service';
-import { OlMapService } from './../../../ol-map.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { HistoryService } from '../../../service/history.service';
 import { DataItem } from '../../../../utilities/entities';
 import { Tracker } from '../../../../utilities/Tracker';
+import { DeviceService, OlMapService, HistoryService } from 'cloudy-location';
 
 @Component({
   selector: 'app-history-item-list',
@@ -13,7 +11,7 @@ import { Tracker } from '../../../../utilities/Tracker';
 export class ItemListComponent implements OnInit {
   private pretr: HTMLTableRowElement
   private tracker: Tracker
-  constructor(private historyService: HistoryService, private deviceService: DeviceService, private mapService: OlMapService) { }
+  constructor(public historyService: HistoryService, private deviceService: DeviceService, private mapService: OlMapService) { }
   ngOnInit() {
     this.historyService.Subscribe(d => {
       var array = d.map(d => [d.X, d.Y]) as [number, number][];

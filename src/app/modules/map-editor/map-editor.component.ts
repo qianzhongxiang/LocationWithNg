@@ -1,9 +1,5 @@
-import { AssetService } from './../../asset.service';
-import { DeviceService } from './../../device.service';
-import { MapComponent } from './../../map/map.component';
+import { MapComponent, OlMapService, ScriptService } from 'cloudy-location';
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { OlMapService } from '../../ol-map.service';
-import { ScriptServiceService } from '../../service/script-service.service';
 
 @Component({
   selector: 'app-map-editor',
@@ -13,11 +9,11 @@ import { ScriptServiceService } from '../../service/script-service.service';
 export class MapEditorComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
-    this.ScriptServiceService.load("editor").then(() => {
+    this.ScriptService.load("editor").then(() => {
       new window["MapEditor"](this.mapElement.nativeElement, this.OlMapService);
     })
   }
-  constructor(private OlMapService: OlMapService, private ScriptServiceService: ScriptServiceService) { }
+  constructor(private OlMapService: OlMapService, private ScriptService: ScriptService) { }
   @ViewChild(MapComponent, { read: MapComponent })
   private map: MapComponent
   @ViewChild(MapComponent, { read: ElementRef })

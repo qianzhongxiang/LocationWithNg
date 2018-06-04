@@ -1,9 +1,7 @@
-import { DeviceService, RequestMsgObject } from './../../device.service';
-import { OlMapService } from './../../ol-map.service';
-import { AssetService } from './../../asset.service';
 import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { VinciInput, DataSource, Ajax } from "vincijs";
 import { ObserverMsg } from 'vincijs/dist/scripts/Patterns/Observerable';
+import { AssetService, OlMapService, DeviceService } from 'cloudy-location';
 interface Parameter {
   Route: string
   Points: Array<{ X: number, Y: number }>

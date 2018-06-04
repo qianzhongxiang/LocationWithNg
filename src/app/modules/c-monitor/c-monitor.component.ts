@@ -1,9 +1,5 @@
-import { AssetService } from './../../asset.service';
-import { DeviceService } from './../../device.service';
+import { MapComponent, OlMapService, DeviceService, AssetService, ScriptService } from 'cloudy-location';
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { OlMapService } from '../../ol-map.service';
-import { MapComponent } from '../../map/map.component';
-import { ScriptServiceService } from '../../service/script-service.service';
 @Component({
   selector: 'app-c-monitor',
   templateUrl: './c-monitor.component.html',
@@ -14,14 +10,14 @@ export class CMonitorComponent implements OnInit, AfterViewInit {
   private map: MapComponent
   @ViewChild(MapComponent, { read: ElementRef })
   private mapElement: ElementRef
-  constructor(private ScriptServiceService: ScriptServiceService, private OlMapService: OlMapService, private DeviceService: DeviceService, private AssetService: AssetService) { }
+  constructor(private ScriptService: ScriptService, private OlMapService: OlMapService, private DeviceService: DeviceService, private AssetService: AssetService) { }
 
   ngOnInit() {
   }
 
   ngAfterViewInit(): void {
-    this.map.DataProcess();
-    this.ScriptServiceService.load("cmonitor").then(() => {
+    this.map.DeviceInit();
+    this.ScriptService.load("cmonitor").then(() => {
       new window["MapMonitor"](this.mapElement.nativeElement, this.OlMapService, this.DeviceService, this.AssetService);
     })
   }

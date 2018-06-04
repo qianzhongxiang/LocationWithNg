@@ -1,6 +1,6 @@
-import { Http, HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { AppConfigService } from './app-config.service';
-import { BrowserModule } from '@angular/platform-browser';
+import { NoopAnimationsModule, BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -15,9 +15,14 @@ export function setupAppCofigServiceFactory(appConfig: AppConfigService): () => 
     AppComponent
   ],
   imports: [
-    HttpModule,
-    BrowserModule,
-    AppRoutingModule
+    HttpClientModule,
+    AppRoutingModule,
+    NoopAnimationsModule,
+    BrowserAnimationsModule
+  ],
+  exports: [
+    NoopAnimationsModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AppConfigService,

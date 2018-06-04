@@ -1,5 +1,5 @@
 import { AppConfigService } from './../app-config.service';
-import { AssetService } from './../asset.service';
+import { AssetService } from 'cloudy-location';
 import { Component, OnInit } from '@angular/core';
 import { WebSocketor, LogHelper } from 'vincijs';
 export interface WarningEntity {
