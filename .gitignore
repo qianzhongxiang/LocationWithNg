@@ -35,6 +35,8 @@ yarn-error.log
 testem.log
 src/typings
 
+app.config.*.json
+
 # e2e
 /e2e/*.js
 /e2e/*.map
