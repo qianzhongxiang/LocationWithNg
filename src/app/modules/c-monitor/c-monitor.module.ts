@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { MapModule, OlMapService, DeviceService, AssetService, ScriptService } from 'cloudy-location';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -14,10 +15,10 @@ import { AppConfigService } from '../../app-config.service';
   ],
   providers: [{
     provide: AssetService,
-    useFactory: (appConfig: AppConfigService) => {
-      let a = new AssetService(); a.Init(appConfig.Data["asset-profile-url"]);
+    useFactory: (appConfig: AppConfigService, httpClient: HttpClient) => {
+      let a = new AssetService(httpClient); a.Init(appConfig.Data["asset-profile-url"]);
       return a;
-    }, deps: [AppConfigService]
+    }, deps: [AppConfigService, HttpClient]
   },
   {
     provide: OlMapService,

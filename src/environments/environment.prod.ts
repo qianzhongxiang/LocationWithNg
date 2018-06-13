@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  configuration: "assets/app.config.sf.json",
+  configuration: "assets/app.config.xb.json",
   responseData: (d) => d.Data || [],
 };

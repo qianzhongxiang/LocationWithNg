@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { MapModule, OlMapService, AssetService, DeviceService, HistoryService } from 'cloudy-location';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -27,6 +28,18 @@ import { AppConfigService } from '../../app-config.service';
       let a = new HistoryService(); a.Init(appConfig.Data.map);
       return a;
     }, deps: [AppConfigService]
-  }, AssetService, DeviceService]
+  }, {
+    provide: AssetService,
+    useFactory: (appConfig: AppConfigService, httpClient: HttpClient) => {
+      let a = new AssetService(httpClient); a.Init(appConfig.Data["asset-profile-url"]);
+      return a;
+    }, deps: [AppConfigService, HttpClient]
+  }, {
+    provide: DeviceService,
+    useFactory: (appConfig: AppConfigService) => {
+      let a = new DeviceService(); a.Init(appConfig.Data.map);
+      return a;
+    }, deps: [AppConfigService]
+  }]
 })
 export class HistoryModule { }

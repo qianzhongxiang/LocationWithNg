@@ -1,8 +1,7 @@
+import { AppConfigService } from './../../../app-config.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { DataItem } from '../../../../utilities/entities';
-import { Tracker } from '../../../../utilities/Tracker';
-import { DeviceService, OlMapService, HistoryService } from 'cloudy-location';
-
+import { DeviceService, OlMapService, HistoryService, Tracker, DataItem, GetProjByEPSG } from 'cloudy-location';
+import ol_proj from 'ol/proj'
 @Component({
   selector: 'app-history-item-list',
   templateUrl: './item-list.component.html',
@@ -11,11 +10,14 @@ import { DeviceService, OlMapService, HistoryService } from 'cloudy-location';
 export class ItemListComponent implements OnInit {
   private pretr: HTMLTableRowElement
   private tracker: Tracker
-  constructor(public historyService: HistoryService, private deviceService: DeviceService, private mapService: OlMapService) { }
+
+  constructor(public historyService: HistoryService, private deviceService: DeviceService, private mapService: OlMapService, private AppConfigService: AppConfigService) { }
   ngOnInit() {
-    this.historyService.Subscribe(d => {
-      var array = d.map(d => [d.X, d.Y]) as [number, number][];
-      array = array.map(a => [Math.random(), 0 - Math.random()]) as [number, number][];
+    this.historyService.Subscribe(ds => {
+      var array = ds.map(d => {
+        d.CollectTime = new Date(d.CollectTime).toLocaleString();
+        return ol_proj.transform([d.X, d.Y], GetProjByEPSG(d.EPSG || 0), this.AppConfigService.Data.map.frontEndEpsg || 'EPSG:3857')
+      }) as [number, number][];
       if (!this.tracker) {
         this.tracker = new Tracker(3, array);
         this.mapService.DrawRoute(this.tracker.GetFeature());
@@ -24,8 +26,9 @@ export class ItemListComponent implements OnInit {
       }
     }, (item, index) => {
       this.SetCurrent(index);
+      let o = Object.assign({}, item, { UniqueId: "history_item", Type: "history_item" })
       //TODO show position
-      this.deviceService.Resolve([item], (g, t) => { }, ps => [1.5, -1.5]);
+      this.deviceService.Resolve([o], (g, t) => { });
     })
   }
 
@@ -43,7 +46,8 @@ export class ItemListComponent implements OnInit {
   public ItemClick(dataItem: DataItem, index: number) {
     this.historyService.Stop();
     this.SetCurrent(index, false);
-    this.deviceService.Resolve([dataItem], (g, t) => { }, ps => [1, -1]);
+    let o = Object.assign({}, dataItem, { UniqueId: "history_item", Type: "history_item" })
+    this.deviceService.Resolve([o], (g, t) => { });
     this.historyService.SetCurrentIndex(index);
   }
 }

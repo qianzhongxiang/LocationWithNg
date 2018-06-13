@@ -16,7 +16,6 @@ export class CMonitorComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.map.DeviceInit();
     this.ScriptService.load("cmonitor").then(() => {
       new window["MapMonitor"](this.mapElement.nativeElement, this.OlMapService, this.DeviceService, this.AssetService);
     })

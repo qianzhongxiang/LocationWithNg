@@ -78,4 +78,9 @@ import 'zone.js/dist/zone';  // Included with Angular CLI.
  * APPLICATION IMPORTS
  */
 
-global.Buffer = global.Buffer || require('buffer').Buffer;
+import * as aa from 'buffer';
+// import * as global from 'globals';
+// (window as any).global = window;
+(window as any).global.Buffer = (window as any).global.Buffer || aa.Buffer;
+
+// (window as any).process.nextTick = setImmediate

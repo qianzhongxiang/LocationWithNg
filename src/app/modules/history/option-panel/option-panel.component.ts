@@ -1,7 +1,8 @@
-import { AssetInfo } from './../../../../utilities/entities';
+import { Ajax, LogHelper } from 'vincijs';
 import { Component, OnInit } from '@angular/core';
 import { VinciTable, DataSource, VinciWindow } from 'vincijs';
-import { AssetService, HistoryService } from 'cloudy-location';
+import { AssetService, HistoryService, AssetInfo } from 'cloudy-location';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-history-option-panel',
@@ -12,6 +13,7 @@ export class OptionPanelComponent implements OnInit {
   CurrentDevice: AssetInfo
   STime: string
   ETime: string
+  Infos: Array<string> = []
   constructor(private historyService: HistoryService, private assetService: AssetService) { }
 
   ngOnInit() {
@@ -49,8 +51,40 @@ export class OptionPanelComponent implements OnInit {
       alert("请选择设备")
       return;
     }
-    //TODO  check time
-    this.historyService.GetData(this.CurrentDevice.Uid, this.CurrentDevice.Type, new Date(this.STime), new Date(this.ETime));
+    if (environment.production) {
+      //TODO Get devices of asset
+      new Ajax({ url: "/TM/GetHistory", data: { Id: this.CurrentDevice.Id, Begin: new Date(this.STime).toISOString(), End: new Date(this.ETime).toISOString() } })
+        .done((d: { IsSuccess: boolean, Data: Array<{ Uid: string, Type: string, Id: string, Begin: string, End: string }> }) => {
+          if (d && d.IsSuccess && d.Data.length > 0) {
+            let array = d.Data
+            //TODO  check time
+            this.historyService.GetData(array.map(a => { return { uid: a.Uid, type: a.Type, sTime: a.Begin, eTime: a.End } }), (ds) => {
+              ds.forEach(d => d.Name = this.CurrentDevice.Title)
+            });
+          } else {
+            alert("当前设备在该时段内未找到对应的终端");
+            return;
+          }
+        })
+    } else {
+      this.historyService.GetData([{ uid: this.CurrentDevice.Uid, type: this.CurrentDevice.Type, sTime: new Date(this.STime).toISOString(), eTime: new Date(this.ETime).toISOString() }], (ds) => {
+        ds.forEach(d => { d.Name = this.CurrentDevice.Title; })// d.CollectTime = new Date(d.CollectTime).toLocaleString()
+      });
+    }
+    this.historyService.Subscribe(undefined, (i) => {
+      try {
+        new Ajax({ url: "/TK/GetInfos", data: { id: this.CurrentDevice.Id, dateTime: i.CollectTime }, contentType: "json" })
+          .done(d => {
+            if (d.IsSuccess && d.Data) {
+              this.Infos.splice(0, this.Infos.length);
+              this.Infos.push(...d.Data);
+            }
+          })
+      }
+      catch (e) {
+        LogHelper.Error(e)
+      }
+    })
   }
   public Stop() {
     this.historyService.Stop();

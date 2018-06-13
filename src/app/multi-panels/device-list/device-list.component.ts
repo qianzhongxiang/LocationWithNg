@@ -30,7 +30,7 @@ export class DeviceListComponent implements OnInit, AfterViewInit {
     c.appendChild(list);
     this.VinciInput = new VinciInput(input, {
       Type: "text", AutoParameters: {
-        TextField: "Title", ValueField: "Type_Id",
+        TextField: "Title", ValueField: "Id_Type",
         ItemsArea: list, DataSource: new DataSource({ Data: [] }),
         Columns: [{ field: "Title", title: "名称" }, { title: "类型", field: "Type" }]
       }
@@ -50,7 +50,7 @@ export class DeviceListComponent implements OnInit, AfterViewInit {
   private SearchChange(e: ObserverMsg) {
     this.OlMapService.GetVectorLayer('route').getSource().clear();
     this.OlMapService.GetVectorLayer('range').getSource().clear();
-    let component = this.DeviceService.Find(o => `${o.type}_${o.Id}`.toLowerCase() == (e.Value as string))[0];
+    let component = this.DeviceService.Find(o => `${o.Id}_${o.type}`.toLowerCase() == (e.Value as string))[0];
     if (component) {
       this.DeviceService.HighLight(component);
       this.OlMapService.Focus(this.DeviceService.GetPosition(component.Id));

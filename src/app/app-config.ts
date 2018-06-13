@@ -1,3 +1,5 @@
+import { MapConifg } from "cloudy-location";
+
 export interface ICate {
     "class": string,
     "title": string,
@@ -7,29 +9,7 @@ export interface ICate {
     "mp": boolean,
     "count": number
 }
-export interface MapConifg {
-    "geoServerUrl"?: string,
-    "wsType"?: string,
-    "mqttTopic"?: string,
-    "mqttUser"?: string,
-    "mqttPd"?: string,
-    "locationSocketURI"?: string,
-    "trackOfComponent"?: boolean,
-    "warningService"?: string,
-    "webService"?: string,
-    "layers"?: {
-        "OMS"?: boolean,
-        "bg"?: boolean,
-        "road"?: boolean,
-        "distance"?: boolean,
-        "marks"?: boolean
-    },
-    "centerPoint"?: Array<number>,
-    "centerSrs"?: string
-    "srs"?: string,
-    "zoom"?: number,
-    "geoServerGroup"?: string
-}
+
 export interface AppConfig {
     "asset-profile-url"?: string
     "multiPanelConfiguration"?: {
