@@ -47,10 +47,13 @@ export class MapEditorComponent implements OnInit, AfterViewInit {
       });
       this.p.CustomRegion = JSON.stringify(coordinates);
       this.SendBackData(this.p);
-    } else if (confirm("没有选择任何路段，是否继续保存？")) {
-      this.p.CustomRegion = null;
-      this.SendBackData(this.p);
+    } else {
+      alert("保存失败：未设定区域，请手动设定区域")
     }
+    // if (confirm("没有选择任何路段，是否继续保存？")) {
+    //   this.p.CustomRegion = null;
+    //   this.SendBackData(this.p);
+    // }
   }
   public Reset() {
     this.Clear();

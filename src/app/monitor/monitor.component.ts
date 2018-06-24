@@ -2,6 +2,7 @@ import { MessageComponent } from './../message/message.component';
 import { AppConfigService } from './../app-config.service';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MapComponent, DeviceService, AssetService, ToolbarComponent, DeviceStatus, GraphicOutInfo } from 'cloudy-location';
+import { IsMobile } from 'vincijs';
 
 @Component({
   selector: 'app-monitor',
@@ -15,7 +16,8 @@ export class MonitorComponent implements OnInit, AfterViewInit {
   private toobar: ToolbarComponent
   @ViewChild(MessageComponent)
   private msg: MessageComponent
-  public InfoUrl: string
+  public Mobile: boolean = IsMobile.any() ? true : false
+  public InfoUrl: string = this.AppConfigService.Data.map.infoUrl
 
   ngAfterViewInit(): void {
     this.DeviceService.Bind(this.DeviceService.Events.DeviceUpdate, (msg) => {
@@ -50,7 +52,6 @@ export class MonitorComponent implements OnInit, AfterViewInit {
   constructor(public AppConfigService: AppConfigService, private DeviceService: DeviceService, private AssetService: AssetService) {
   }
   ngOnInit() {
-    this.InfoUrl = this.AppConfigService.Data.map.infoUrl;
   }
 
 }

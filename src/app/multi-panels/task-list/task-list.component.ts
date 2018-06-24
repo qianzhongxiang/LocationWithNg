@@ -1,12 +1,13 @@
-import { ObserverMsg } from 'vincijs/dist/scripts/Patterns/Observerable';
-import { VinciInput, DataSource, Ajax } from 'vincijs';
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { VinciInput, DataSource, Ajax, ObserverMsg } from 'vincijs';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Input } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { AppConfigService } from '../../app-config.service';
 import { OlMapService, DeviceService } from 'cloudy-location';
 interface TaskEntity {
   Name: string
   Assets: Array<{ Type: string, UId: string }>
+  Infos: string[]
+  InfoStr: string
 }
 interface Parameter {
   Route: string
@@ -22,6 +23,8 @@ export class TaskListComponent implements OnInit, AfterViewInit {
   private VinciInput: VinciInput<{}>
   private DataLoaded: boolean = false;
   @ViewChild("div", { read: ElementRef }) Container: ElementRef
+  @Input("close")
+  private Close: () => void
   constructor(private OlMapService: OlMapService, private DeviceService: DeviceService, private appConfigService: AppConfigService) { }
   ngAfterViewInit(): void {
     if (this.DataLoaded) {
@@ -31,7 +34,9 @@ export class TaskListComponent implements OnInit, AfterViewInit {
       Read: (p) => {
         new Ajax({ url: this.appConfigService.Data.multiPanelConfiguration.taskListSource.url }).done(d => {
           if (!d) return;
-          p.Success(environment.responseData(d))
+          let res = environment.responseData(d) as TaskEntity[];
+          res.forEach(i => i.InfoStr = i.Infos.join("</br>"));
+          p.Success(res)
         })
       }
     }))
@@ -50,7 +55,7 @@ export class TaskListComponent implements OnInit, AfterViewInit {
       Type: "text", AutoParameters: {
         TextField: "Name", ValueField: "Name",
         ItemsArea: list, DataSource: new DataSource({ Data: [] }),
-        Columns: [{ field: "Name", title: "名称" }]
+        Columns: [{ field: "InfoStr", title: "任务" }]
       }
     });
     this.VinciInput.Bind(this.VinciInput.Events.Change, this.SearchChange.bind(this))

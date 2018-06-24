@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { LogHelper } from 'vincijs';
+import { LogHelper, Ajax } from 'vincijs';
 import { AppConfig } from './app-config';
 import { Injectable } from '@angular/core';
 import { environment } from '../environments/environment';

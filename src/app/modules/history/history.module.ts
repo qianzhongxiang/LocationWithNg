@@ -8,6 +8,7 @@ import { HistoryComponent } from './history.component';
 import { ItemListComponent } from './item-list/item-list.component';
 import { OptionPanelComponent } from './option-panel/option-panel.component';
 import { AppConfigService } from '../../app-config.service';
+import InitGraphics from '../../utilities/graphicInit';
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import { AppConfigService } from '../../app-config.service';
   }, {
     provide: DeviceService,
     useFactory: (appConfig: AppConfigService) => {
+      InitGraphics();
       let a = new DeviceService(); a.Init(appConfig.Data.map);
       return a;
     }, deps: [AppConfigService]

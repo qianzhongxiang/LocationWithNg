@@ -1,7 +1,5 @@
-import { AppConfigService } from './../../../app-config.service';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { DeviceService, OlMapService, HistoryService, Tracker, DataItem, GetProjByEPSG } from 'cloudy-location';
-import ol_proj from 'ol/proj'
+import { DeviceService, OlMapService, HistoryService, Tracker, DataItem } from 'cloudy-location';
 @Component({
   selector: 'app-history-item-list',
   templateUrl: './item-list.component.html',
@@ -9,22 +7,10 @@ import ol_proj from 'ol/proj'
 })
 export class ItemListComponent implements OnInit {
   private pretr: HTMLTableRowElement
-  private tracker: Tracker
 
-  constructor(public historyService: HistoryService, private deviceService: DeviceService, private mapService: OlMapService, private AppConfigService: AppConfigService) { }
+  constructor(public historyService: HistoryService, private deviceService: DeviceService, private mapService: OlMapService) { }
   ngOnInit() {
-    this.historyService.Subscribe(ds => {
-      var array = ds.map(d => {
-        d.CollectTime = new Date(d.CollectTime).toLocaleString();
-        return ol_proj.transform([d.X, d.Y], GetProjByEPSG(d.EPSG || 0), this.AppConfigService.Data.map.frontEndEpsg || 'EPSG:3857')
-      }) as [number, number][];
-      if (!this.tracker) {
-        this.tracker = new Tracker(3, array);
-        this.mapService.DrawRoute(this.tracker.GetFeature());
-      } else {
-        this.tracker.AddPoints(array)
-      }
-    }, (item, index) => {
+    this.historyService.Subscribe(undefined, (item, index) => {
       this.SetCurrent(index);
       let o = Object.assign({}, item, { UniqueId: "history_item", Type: "history_item" })
       //TODO show position

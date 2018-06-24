@@ -22,4 +22,7 @@ export class MultiPanelsComponent implements OnInit {
     } else
       this.SelectedItem = item;
   }
+  public Close() {
+    // this.Select = undefined;
+  }
 }

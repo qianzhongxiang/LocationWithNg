@@ -9,14 +9,16 @@ import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MonitorRoutingModule } from './monitor-routing.module';
 import { FormsModule } from '@angular/forms';
-import { DeviceService, MapModule, AssetService, OlMapService, ToolbarModule } from 'cloudy-location'
+import { DeviceService, MapModule, AssetService, OlMapService, ToolbarModule, WsService, MessageService, MessageModule } from 'cloudy-location'
+import InitGraphics from '../utilities/graphicInit';
 @NgModule({
   imports: [
     CommonModule,
     MonitorRoutingModule,
     FormsModule,
     MapModule,
-    ToolbarModule
+    ToolbarModule,
+    MessageModule
   ],
   declarations: [MonitorComponent, MultiPanelsComponent, MessageComponent
     , DeviceListComponent, TaskListComponent],
@@ -41,17 +43,19 @@ import { DeviceService, MapModule, AssetService, OlMapService, ToolbarModule } f
     }, {
       provide: DeviceService,
       useFactory: (appConfig: AppConfigService) => {
+        InitGraphics();
         let a = new DeviceService(); a.Init(appConfig.Data.map);
         return a;
       }, deps: [AppConfigService]
     },
-    // {
-    //   provide: Mesage,
-    //   useFactory: (appConfig: AppConfigService) => {
-    //     let a = new MessageService(); a.Init(appConfig.Data.map.warningService,appConfig.Data.map.warningWsType);
-    //     return a;
-    //   }, deps: [AppConfigService]
-    // }
+    {
+      provide: MessageService,
+      useFactory: (appConfig: AppConfigService, WsService: WsService) => {
+        let a = new MessageService(WsService); a.Init(appConfig.Data.map.msgConfig.ServiceURI, appConfig.Data.map.msgConfig.wsType
+          , appConfig.Data.map.mqttUser, appConfig.Data.map.mqttPd);
+        return a;
+      }, deps: [AppConfigService, WsService]
+    }
   ],
   // bootstrap: [MonitorComponent]
 })

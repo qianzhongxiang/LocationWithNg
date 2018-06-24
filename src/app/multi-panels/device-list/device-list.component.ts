@@ -1,6 +1,5 @@
-import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { VinciInput, DataSource, Ajax } from "vincijs";
-import { ObserverMsg } from 'vincijs/dist/scripts/Patterns/Observerable';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewInit, Input } from '@angular/core';
+import { VinciInput, DataSource, Ajax, ObserverMsg, IsMobile } from "vincijs";
 import { AssetService, OlMapService, DeviceService } from 'cloudy-location';
 interface Parameter {
   Route: string
@@ -14,6 +13,8 @@ interface Parameter {
 export class DeviceListComponent implements OnInit, AfterViewInit {
   @ViewChild("div", { read: ElementRef }) Container: ElementRef
   private VinciInput: VinciInput<any>
+  @Input("close")
+  private Close: () => void
   constructor(private AssetService: AssetService, private OlMapService: OlMapService, private DeviceService: DeviceService) {
   }
   ngAfterViewInit(): void {
@@ -32,7 +33,7 @@ export class DeviceListComponent implements OnInit, AfterViewInit {
       Type: "text", AutoParameters: {
         TextField: "Title", ValueField: "Id_Type",
         ItemsArea: list, DataSource: new DataSource({ Data: [] }),
-        Columns: [{ field: "Title", title: "名称" }, { title: "类型", field: "Type" }]
+        Columns: [{ field: "Title", title: "名称" }, { title: "类型", field: "CategoryName" }]
       }
     })
     this.VinciInput.Bind(this.VinciInput.Events.Change, this.SearchChange.bind(this));
@@ -48,6 +49,9 @@ export class DeviceListComponent implements OnInit, AfterViewInit {
  */
 
   private SearchChange(e: ObserverMsg) {
+    if (IsMobile.any()) {
+      this.Close();
+    }
     this.OlMapService.GetVectorLayer('route').getSource().clear();
     this.OlMapService.GetVectorLayer('range').getSource().clear();
     let component = this.DeviceService.Find(o => `${o.Id}_${o.type}`.toLowerCase() == (e.Value as string))[0];

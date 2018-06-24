@@ -1,7 +1,6 @@
-import { Ajax, LogHelper } from 'vincijs';
-import { Component, OnInit } from '@angular/core';
-import { VinciTable, DataSource, VinciWindow } from 'vincijs';
-import { AssetService, HistoryService, AssetInfo } from 'cloudy-location';
+import { Component, OnInit, Input } from '@angular/core';
+import { VinciTable, DataSource, VinciWindow, Ajax, LogHelper, Observerable, VinciInput } from 'vincijs';
+import { AssetService, HistoryService, AssetInfo, DeviceService, Tracker } from 'cloudy-location';
 import { environment } from '../../../../environments/environment';
 
 @Component({
@@ -9,12 +8,15 @@ import { environment } from '../../../../environments/environment';
   templateUrl: './option-panel.component.html',
   styleUrls: ['./option-panel.component.css']
 })
-export class OptionPanelComponent implements OnInit {
+export class OptionPanelComponent extends Observerable implements OnInit {
   CurrentDevice: AssetInfo
   STime: string
   ETime: string
   Infos: Array<string> = []
-  constructor(private historyService: HistoryService, private assetService: AssetService) { }
+  Events = { "searching": "searching" };
+  constructor(private historyService: HistoryService, private assetService: AssetService, private DeviceService: DeviceService) {
+    super()
+  }
 
   ngOnInit() {
     let now = new Date();
@@ -25,37 +27,61 @@ export class OptionPanelComponent implements OnInit {
     return ((num < 10) ? '0' : '') + num;
   }
   public SelectDeive() {
-    let list = document.createElement("div");
+    let input = document.createElement("input")
+      , list = document.createElement("div")
+      , c = document.createElement('div')
+    input.style.width = "100%"
     list.style.overflow = "auto";
     list.style.height = "400px";
-    let table = new VinciTable(list, {
-      Dbclickable: true,
-      DataSource: new DataSource({
-        Read: p => {
-          let d = [];
-          d = this.assetService.GetAssets();
-          p.Success(d);
-        }
-      }), Columns: [{ field: "Title", title: "名称" }, { title: "类型", field: "Type" }, { title: "Id", field: "Uid" }]
+    list.style.width = "100%"
+    input.classList.add("form-control-sm")
+    // container.classList.add("");
+    c.appendChild(input);
+    c.appendChild(list);
+    let vinciInput = new VinciInput(input, {
+      Type: "text", AutoParameters: {
+        TextField: "Title", ValueField: "Id_Type",
+        ItemsArea: list, DataSource: new DataSource({
+          Read: p => {
+            let d = [];
+            d = this.assetService.GetAllAssets();
+            p.Success(d);
+          }
+        }),
+        Columns: [{ field: "Title", title: "名称" }, { title: "类型", field: "CategoryName" }, { title: "状态", field: "AssetStatus" }]
+      }
     })
-
-    let windo = new VinciWindow(list, { AutoDestory: true, Title: "选择设备" });
-    windo.Open();
-    table.Bind(table.Events.OnDblclick, msg => {
-      this.CurrentDevice = msg.Value;
+    vinciInput.Bind(vinciInput.Events.Change, msg => {
+      this.CurrentDevice = vinciInput.GetCurrentItems()[0];
       windo.Close();
-    })
+    });
+
+
+
+    let windo = new VinciWindow(c, { AutoDestory: true, Title: "选择设备" });
+    windo.Open();
+    // table.Bind(table.Events.OnDblclick, msg => {
+    //   this.CurrentDevice = msg.Value;
+    //   windo.Close();
+    // })
   }
+  @Input("tracker")
+  public tracker: Tracker
   public Search() {
     if (!this.CurrentDevice) {
       alert("请选择设备")
       return;
     }
+
+    // this.SetState(this.Events.searching)
     if (environment.production) {
       //TODO Get devices of asset
-      new Ajax({ url: "/TM/GetHistory", data: { Id: this.CurrentDevice.Id, Begin: new Date(this.STime).toISOString(), End: new Date(this.ETime).toISOString() } })
+      new Ajax({ url: "/TM/GetHistory", data: { Id: this.CurrentDevice.Id, Begin: new Date(this.STime).toISOString(), End: new Date(this.ETime).toISOString() }, contentType: "json" })
         .done((d: { IsSuccess: boolean, Data: Array<{ Uid: string, Type: string, Id: string, Begin: string, End: string }> }) => {
           if (d && d.IsSuccess && d.Data.length > 0) {
+            this.Stop();
+            this.tracker.Clean();
+            this.DeviceService.UpdateTitle("history_item", "history_item", this.CurrentDevice.Title)
             let array = d.Data
             //TODO  check time
             this.historyService.GetData(array.map(a => { return { uid: a.Uid, type: a.Type, sTime: a.Begin, eTime: a.End } }), (ds) => {
@@ -67,13 +93,17 @@ export class OptionPanelComponent implements OnInit {
           }
         })
     } else {
+      this.Stop();
+      this.tracker.Clean();
+      this.DeviceService.UpdateTitle("history_item", "history_item", this.CurrentDevice.Title)
+
       this.historyService.GetData([{ uid: this.CurrentDevice.Uid, type: this.CurrentDevice.Type, sTime: new Date(this.STime).toISOString(), eTime: new Date(this.ETime).toISOString() }], (ds) => {
         ds.forEach(d => { d.Name = this.CurrentDevice.Title; })// d.CollectTime = new Date(d.CollectTime).toLocaleString()
       });
     }
     this.historyService.Subscribe(undefined, (i) => {
       try {
-        new Ajax({ url: "/TK/GetInfos", data: { id: this.CurrentDevice.Id, dateTime: i.CollectTime }, contentType: "json" })
+        new Ajax({ url: "/TK/GetInfos", data: { id: i.UniqueId, dateTime: i.CollectTime, type: i.Type }, contentType: "json" })
           .done(d => {
             if (d.IsSuccess && d.Data) {
               this.Infos.splice(0, this.Infos.length);

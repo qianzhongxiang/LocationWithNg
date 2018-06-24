@@ -7,7 +7,9 @@
             "Type": "Incar",
             "Title": "7#装载机",
             "Color": "#D2691E",
-            "Category": "MobileMachinery"
+            "Category": "MobileMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "流机"
         },
         {
             "Id": "57ff8ebe-7d3d-405c-bc68-4b143a38e61a",
@@ -15,7 +17,9 @@
             "Type": "Incar",
             "Title": "1#斗轮机",
             "Color": "#FFBA00",
-            "Category": "LargeMachinery"
+            "Category": "LargeMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "大机"
         },
         {
             "Id": "0d4d37b8-125c-4354-8d21-76bd4c92073f",
@@ -23,7 +27,9 @@
             "Type": "Incar",
             "Title": "15#装载机",
             "Color": "#D2691E",
-            "Category": "MobileMachinery"
+            "Category": "MobileMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "流机"
         },
         {
             "Id": "d10bb471-b662-49e7-96a8-d74721cb271e",
@@ -31,7 +37,9 @@
             "Type": "Incar",
             "Title": "2#斗轮机",
             "Color": "#FFBA00",
-            "Category": "LargeMachinery"
+            "Category": "LargeMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "大机"
         },
         {
             "Id": "1cf7f2f7-9e80-4c9d-a5d1-480c695925a2",
@@ -39,7 +47,9 @@
             "Type": "GpsTag",
             "Title": "林守卫",
             "Color": "#FFBA00",
-            "Category": "Staff"
+            "Category": "Staff",
+            "AssetStatus": "InUse",
+            "CategoryName": "人员"
         },
         {
             "Id": "e37ed74a-22a6-47c8-978a-3c6ad87e4e7d",
@@ -47,7 +57,9 @@
             "Type": "GpsTag",
             "Title": "张达成",
             "Color": "#FFBA00",
-            "Category": "Staff"
+            "Category": "Staff",
+            "AssetStatus": "InUse",
+            "CategoryName": "人员"
         },
         {
             "Id": "645f265a-5221-4fdd-abdc-b17222acfa4e",
@@ -55,7 +67,9 @@
             "Type": "GpsTag",
             "Title": "刘立才",
             "Color": "#FFBA00",
-            "Category": "Staff"
+            "Category": "Staff",
+            "AssetStatus": "InUse",
+            "CategoryName": "人员"
         },
         {
             "Id": "63346b45-b6d0-4888-ba65-40697c38e1f1",
@@ -63,7 +77,9 @@
             "Type": "GpsTag",
             "Title": "丁国强",
             "Color": "#FFBA00",
-            "Category": "Staff"
+            "Category": "Staff",
+            "AssetStatus": "InUse",
+            "CategoryName": "人员"
         },
         {
             "Id": "9d728169-158d-4223-80b2-fef4319fa33c",
@@ -71,7 +87,9 @@
             "Type": "GpsTag",
             "Title": "江天宝",
             "Color": "#FFBA00",
-            "Category": "Staff"
+            "Category": "Staff",
+            "AssetStatus": "InUse",
+            "CategoryName": "人员"
         },
         {
             "Id": "6c9b8ff4-9117-42a8-9100-41ce88f6f2ea",
@@ -79,7 +97,9 @@
             "Type": "GpsTag",
             "Title": "杜茂红",
             "Color": "#FFBA00",
-            "Category": "Staff"
+            "Category": "Staff",
+            "AssetStatus": "InUse",
+            "CategoryName": "人员"
         },
         {
             "Id": "6d669053-cbf4-4017-be1e-dfe03367cd6b",
@@ -87,7 +107,9 @@
             "Type": "GpsTag",
             "Title": "徐永才",
             "Color": "#FFBA00",
-            "Category": "Staff"
+            "Category": "Staff",
+            "AssetStatus": "InUse",
+            "CategoryName": "人员"
         },
         {
             "Id": "e82ef0b5-18f1-4955-8e2d-c1f4c6600392",
@@ -95,7 +117,9 @@
             "Type": "GpsTag",
             "Title": "周俊顺",
             "Color": "#FFBA00",
-            "Category": "Staff"
+            "Category": "Staff",
+            "AssetStatus": "InUse",
+            "CategoryName": "人员"
         },
         {
             "Id": "cf15e5c7-b1ee-488b-9162-d0baf389e605",
@@ -103,7 +127,9 @@
             "Type": "GpsTag",
             "Title": "林德任",
             "Color": "#FFBA00",
-            "Category": "Staff"
+            "Category": "Staff",
+            "AssetStatus": "InUse",
+            "CategoryName": "人员"
         },
         {
             "Id": "76308444-3553-4525-8702-3ad9ed059315",
@@ -111,7 +137,9 @@
             "Type": "GpsTag",
             "Title": "苗学冲",
             "Color": "#FFBA00",
-            "Category": "Staff"
+            "Category": "Staff",
+            "AssetStatus": "InUse",
+            "CategoryName": "人员"
         },
         {
             "Id": "339b91bc-37e6-41f4-a304-c2ba4b35abf5",
@@ -119,7 +147,9 @@
             "Type": "GpsTag",
             "Title": "刘伟",
             "Color": "#FFBA00",
-            "Category": "Staff"
+            "Category": "Staff",
+            "AssetStatus": "InUse",
+            "CategoryName": "人员"
         },
         {
             "Id": "1e0d68e5-bac4-4503-93ae-988649c3f337",
@@ -127,7 +157,9 @@
             "Type": "GpsTag",
             "Title": "刘宗奇",
             "Color": "#FFBA00",
-            "Category": "Staff"
+            "Category": "Staff",
+            "AssetStatus": "InUse",
+            "CategoryName": "人员"
         },
         {
             "Id": "92358bed-3c1b-493e-8212-d19d645de0cb",
@@ -135,7 +167,9 @@
             "Type": "GpsTag",
             "Title": "黎敬文",
             "Color": "#FFBA00",
-            "Category": "Staff"
+            "Category": "Staff",
+            "AssetStatus": "InUse",
+            "CategoryName": "人员"
         },
         {
             "Id": "bd3d68d7-43b2-4156-bb55-5b98d92fcbe1",
@@ -143,7 +177,9 @@
             "Type": "GpsTag",
             "Title": "王欢",
             "Color": "#FFBA00",
-            "Category": "Staff"
+            "Category": "Staff",
+            "AssetStatus": "InUse",
+            "CategoryName": "人员"
         },
         {
             "Id": "646a9c5a-103f-4e37-b1d0-2f93f1e65235",
@@ -151,7 +187,9 @@
             "Type": "CellPhone",
             "Title": "戴泽芹",
             "Color": "#FFBA00",
-            "Category": "Staff"
+            "Category": "Staff",
+            "AssetStatus": "InUse",
+            "CategoryName": "人员"
         },
         {
             "Id": "40dfa91a-c348-481e-a258-d85da0010e66",
@@ -159,7 +197,9 @@
             "Type": "CellPhone",
             "Title": "方雪峰",
             "Color": "#FFBA00",
-            "Category": "Staff"
+            "Category": "Staff",
+            "AssetStatus": "InUse",
+            "CategoryName": "人员"
         },
         {
             "Id": "1487c358-c889-465d-9a89-b7a332a5ad44",
@@ -167,7 +207,9 @@
             "Type": "CellPhone",
             "Title": "许小翠",
             "Color": "#FFBA00",
-            "Category": "Staff"
+            "Category": "Staff",
+            "AssetStatus": "InUse",
+            "CategoryName": "人员"
         },
         {
             "Id": "f6697a33-dd81-4a97-a902-acecc88850bd",
@@ -175,7 +217,9 @@
             "Type": "CellPhone",
             "Title": "戴智伟",
             "Color": "#FFBA00",
-            "Category": "Staff"
+            "Category": "Staff",
+            "AssetStatus": "InUse",
+            "CategoryName": "人员"
         },
         {
             "Id": "bbf82e89-ea3c-4207-ba78-ca6c52ca3caa",
@@ -183,7 +227,9 @@
             "Type": "CellPhone",
             "Title": "吕道文",
             "Color": "#FFBA00",
-            "Category": "Staff"
+            "Category": "Staff",
+            "AssetStatus": "InUse",
+            "CategoryName": "人员"
         },
         {
             "Id": "f6bb8491-a8c6-4a32-9dc6-7d02ec23fa90",
@@ -191,7 +237,9 @@
             "Type": "CellPhone",
             "Title": "高航",
             "Color": "#FFBA00",
-            "Category": "Staff"
+            "Category": "Staff",
+            "AssetStatus": "InUse",
+            "CategoryName": "人员"
         },
         {
             "Id": "8d54cabf-8118-4529-988f-a91c6313fc89",
@@ -199,7 +247,9 @@
             "Type": "CellPhone",
             "Title": "陈超",
             "Color": "#FFBA00",
-            "Category": "Staff"
+            "Category": "Staff",
+            "AssetStatus": "InUse",
+            "CategoryName": "人员"
         },
         {
             "Id": "0f799da4-e35c-4527-b307-2800185ef25c",
@@ -207,7 +257,9 @@
             "Type": "CellPhone",
             "Title": "凌正姜",
             "Color": "#FFBA00",
-            "Category": "Staff"
+            "Category": "Staff",
+            "AssetStatus": "InUse",
+            "CategoryName": "人员"
         },
         {
             "Id": "393e9417-2cd0-49a5-8d3b-8d77f63d827d",
@@ -215,7 +267,9 @@
             "Type": "CellPhone",
             "Title": "欧飞",
             "Color": "#FFBA00",
-            "Category": "Staff"
+            "Category": "Staff",
+            "AssetStatus": "InUse",
+            "CategoryName": "人员"
         },
         {
             "Id": "99364210-1a24-425d-a9ec-45519004f01d",
@@ -223,7 +277,9 @@
             "Type": "CellPhone",
             "Title": "王磊",
             "Color": "#FFBA00",
-            "Category": "Staff"
+            "Category": "Staff",
+            "AssetStatus": "InUse",
+            "CategoryName": "人员"
         },
         {
             "Id": "f28a9308-c4b1-49ac-bdff-24fa5773bc71",
@@ -231,7 +287,9 @@
             "Type": "CellPhone",
             "Title": "侍 丁",
             "Color": "#FFBA00",
-            "Category": "Staff"
+            "Category": "Staff",
+            "AssetStatus": "InUse",
+            "CategoryName": "人员"
         },
         {
             "Id": "541163ee-ff30-4c96-b7b8-9f34730b95e5",
@@ -239,7 +297,9 @@
             "Type": "CellPhone",
             "Title": "张维方",
             "Color": "#FFBA00",
-            "Category": "Staff"
+            "Category": "Staff",
+            "AssetStatus": "InUse",
+            "CategoryName": "人员"
         },
         {
             "Id": "13d53e79-8057-4e2b-a326-a5600f9973ce",
@@ -247,7 +307,9 @@
             "Type": "Incar",
             "Title": "2#装载机(金景)",
             "Color": "#D2691E",
-            "Category": "MobileMachinery"
+            "Category": "MobileMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "流机"
         },
         {
             "Id": "3d149953-6899-473d-bab5-5121df927b17",
@@ -255,7 +317,9 @@
             "Type": "Incar",
             "Title": "1#装载机(金景)",
             "Color": "#D2691E",
-            "Category": "MobileMachinery"
+            "Category": "MobileMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "流机"
         },
         {
             "Id": "29f99fb6-f426-4897-8476-e33a8a841819",
@@ -263,7 +327,9 @@
             "Type": "Incar",
             "Title": "2#装载机(群首)",
             "Color": "#D2691E",
-            "Category": "MobileMachinery"
+            "Category": "MobileMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "流机"
         },
         {
             "Id": "7991281f-1e1b-4b6e-833f-88e616a20692",
@@ -271,7 +337,9 @@
             "Type": "Incar",
             "Title": "1#装载机(群首)",
             "Color": "#D2691E",
-            "Category": "MobileMachinery"
+            "Category": "MobileMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "流机"
         },
         {
             "Id": "1bf8de2e-6de7-4d44-a215-094bc307535b",
@@ -279,7 +347,9 @@
             "Type": "Incar",
             "Title": "116#装载机（嘉祥）",
             "Color": "#D2691E",
-            "Category": "MobileMachinery"
+            "Category": "MobileMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "流机"
         },
         {
             "Id": "0eff8d13-c47a-4110-a49c-e7dc38cb106a",
@@ -287,7 +357,9 @@
             "Type": "Incar",
             "Title": "105#装载机（嘉祥）",
             "Color": "#D2691E",
-            "Category": "MobileMachinery"
+            "Category": "MobileMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "流机"
         },
         {
             "Id": "c8d69323-cf1b-4dab-8418-651a950715ff",
@@ -295,7 +367,9 @@
             "Type": "Incar",
             "Title": "108#装载机（嘉祥）",
             "Color": "#D2691E",
-            "Category": "MobileMachinery"
+            "Category": "MobileMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "流机"
         },
         {
             "Id": "a30fde6f-437b-4e67-96f1-59c53341c4fb",
@@ -303,7 +377,9 @@
             "Type": "Incar",
             "Title": "110#装载机（嘉祥）",
             "Color": "#D2691E",
-            "Category": "MobileMachinery"
+            "Category": "MobileMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "流机"
         },
         {
             "Id": "a97201e7-3dbe-428d-a1db-9158305ac16d",
@@ -311,7 +387,9 @@
             "Type": "Incar",
             "Title": "11#自卸车",
             "Color": "#9400D3",
-            "Category": "DumpTruck"
+            "Category": "DumpTruck",
+            "AssetStatus": "InUse",
+            "CategoryName": "自卸车"
         },
         {
             "Id": "1d4cec49-210a-419c-b3ac-77f7f18f8c4f",
@@ -319,7 +397,9 @@
             "Type": "Incar",
             "Title": "10#自卸车",
             "Color": "#9400D3",
-            "Category": "DumpTruck"
+            "Category": "DumpTruck",
+            "AssetStatus": "InUse",
+            "CategoryName": "自卸车"
         },
         {
             "Id": "cebadaba-0e33-4716-96ca-942baa294598",
@@ -327,7 +407,9 @@
             "Type": "Incar",
             "Title": "9#自卸车",
             "Color": "#9400D3",
-            "Category": "DumpTruck"
+            "Category": "DumpTruck",
+            "AssetStatus": "InUse",
+            "CategoryName": "自卸车"
         },
         {
             "Id": "ad1fe814-76eb-4404-850e-84ce019a5448",
@@ -335,7 +417,9 @@
             "Type": "Incar",
             "Title": "7#自卸车",
             "Color": "#9400D3",
-            "Category": "DumpTruck"
+            "Category": "DumpTruck",
+            "AssetStatus": "InUse",
+            "CategoryName": "自卸车"
         },
         {
             "Id": "9119690c-859e-43bb-b761-9437c8b22f6a",
@@ -343,7 +427,9 @@
             "Type": "Incar",
             "Title": "6#自卸车",
             "Color": "#9400D3",
-            "Category": "DumpTruck"
+            "Category": "DumpTruck",
+            "AssetStatus": "InUse",
+            "CategoryName": "自卸车"
         },
         {
             "Id": "585e4f4a-2ec9-4e6e-a484-5e8d38a17ad6",
@@ -351,7 +437,9 @@
             "Type": "Incar",
             "Title": "5#自卸车",
             "Color": "#9400D3",
-            "Category": "DumpTruck"
+            "Category": "DumpTruck",
+            "AssetStatus": "InUse",
+            "CategoryName": "自卸车"
         },
         {
             "Id": "80913557-c14d-492a-9421-5e446f4ba942",
@@ -359,7 +447,9 @@
             "Type": "Incar",
             "Title": "3#自卸车",
             "Color": "#9400D3",
-            "Category": "DumpTruck"
+            "Category": "DumpTruck",
+            "AssetStatus": "InUse",
+            "CategoryName": "自卸车"
         },
         {
             "Id": "b7fd750c-4339-4e77-9a2b-17ff5dcba8e9",
@@ -367,7 +457,9 @@
             "Type": "Incar",
             "Title": "2#自卸车",
             "Color": "#9400D3",
-            "Category": "DumpTruck"
+            "Category": "DumpTruck",
+            "AssetStatus": "InUse",
+            "CategoryName": "自卸车"
         },
         {
             "Id": "193de742-7256-43d9-96f5-b0a64e308d28",
@@ -375,7 +467,9 @@
             "Type": "Incar",
             "Title": "1#自卸车",
             "Color": "#9400D3",
-            "Category": "DumpTruck"
+            "Category": "DumpTruck",
+            "AssetStatus": "InUse",
+            "CategoryName": "自卸车"
         },
         {
             "Id": "ace0e5a5-52c6-4434-ab69-2840efbb012c",
@@ -383,7 +477,9 @@
             "Type": "Incar",
             "Title": "16#装载机",
             "Color": "#D2691E",
-            "Category": "MobileMachinery"
+            "Category": "MobileMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "流机"
         },
         {
             "Id": "4a47ce88-ebdb-4ad7-9758-48d87b958fb7",
@@ -391,7 +487,9 @@
             "Type": "Incar",
             "Title": "14#装载机",
             "Color": "#D2691E",
-            "Category": "MobileMachinery"
+            "Category": "MobileMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "流机"
         },
         {
             "Id": "f1cfa16f-c643-4eb1-adc7-7155e17a2452",
@@ -399,7 +497,9 @@
             "Type": "Incar",
             "Title": "13#装载机",
             "Color": "#D2691E",
-            "Category": "MobileMachinery"
+            "Category": "MobileMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "流机"
         },
         {
             "Id": "c630ff9b-0b9d-4b76-986f-b03807c761f6",
@@ -407,7 +507,9 @@
             "Type": "Incar",
             "Title": "12#装载机",
             "Color": "#D2691E",
-            "Category": "MobileMachinery"
+            "Category": "MobileMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "流机"
         },
         {
             "Id": "af747888-17fb-4606-a93b-6f83a95b13b6",
@@ -415,7 +517,9 @@
             "Type": "Incar",
             "Title": "11#装载机",
             "Color": "#D2691E",
-            "Category": "MobileMachinery"
+            "Category": "MobileMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "流机"
         },
         {
             "Id": "3cb6231f-8a1d-40f9-aebf-f09909a1d848",
@@ -423,7 +527,9 @@
             "Type": "Incar",
             "Title": "10#装载机",
             "Color": "#D2691E",
-            "Category": "MobileMachinery"
+            "Category": "MobileMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "流机"
         },
         {
             "Id": "2cec7fa7-03ca-4a43-9b31-fe7cfdde4e0b",
@@ -431,7 +537,9 @@
             "Type": "Incar",
             "Title": "9#装载机",
             "Color": "#D2691E",
-            "Category": "MobileMachinery"
+            "Category": "MobileMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "流机"
         },
         {
             "Id": "cf164300-5398-45cd-a3be-724a6f818c96",
@@ -439,7 +547,9 @@
             "Type": "Incar",
             "Title": "8#装载机",
             "Color": "#D2691E",
-            "Category": "MobileMachinery"
+            "Category": "MobileMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "流机"
         },
         {
             "Id": "ee49be8d-c5ca-44cf-b906-e114647da5c9",
@@ -447,7 +557,9 @@
             "Type": "Incar",
             "Title": "6#装载机",
             "Color": "#D2691E",
-            "Category": "MobileMachinery"
+            "Category": "MobileMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "流机"
         },
         {
             "Id": "64836e9d-13e6-4923-b293-97a36e3b5d52",
@@ -455,7 +567,9 @@
             "Type": "Incar",
             "Title": "5#装载机",
             "Color": "#D2691E",
-            "Category": "MobileMachinery"
+            "Category": "MobileMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "流机"
         },
         {
             "Id": "bbecd530-ce8c-4066-86e6-d758d625c502",
@@ -463,7 +577,9 @@
             "Type": "Incar",
             "Title": "4#装载机",
             "Color": "#D2691E",
-            "Category": "MobileMachinery"
+            "Category": "MobileMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "流机"
         },
         {
             "Id": "10d6679f-8fe4-4ada-8780-e651ba86ab63",
@@ -471,7 +587,9 @@
             "Type": "Incar",
             "Title": "3#装载机",
             "Color": "#D2691E",
-            "Category": "MobileMachinery"
+            "Category": "MobileMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "流机"
         },
         {
             "Id": "d5fa53b5-9002-48d2-a475-25762796b694",
@@ -479,7 +597,9 @@
             "Type": "Incar",
             "Title": "2#装载机",
             "Color": "#D2691E",
-            "Category": "MobileMachinery"
+            "Category": "MobileMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "流机"
         },
         {
             "Id": "d011e4d2-2205-4a14-823d-2f278b291f69",
@@ -487,7 +607,9 @@
             "Type": "Incar",
             "Title": "1#装载机",
             "Color": "#D2691E",
-            "Category": "MobileMachinery"
+            "Category": "MobileMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "流机"
         },
         {
             "Id": "58fcb4f9-b343-404c-8150-651fc9e0db7e",
@@ -495,7 +617,9 @@
             "Type": "Incar",
             "Title": "3#叉车",
             "Color": "#D2691E",
-            "Category": "MobileMachinery"
+            "Category": "MobileMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "流机"
         },
         {
             "Id": "b9156d2d-1e7c-4c97-9c94-6e4fddd5959e",
@@ -503,7 +627,9 @@
             "Type": "Incar",
             "Title": "2#叉车",
             "Color": "#D2691E",
-            "Category": "MobileMachinery"
+            "Category": "MobileMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "流机"
         },
         {
             "Id": "397d52b7-e35e-41e7-a660-c96bc43d754b",
@@ -511,7 +637,9 @@
             "Type": "Incar",
             "Title": "1#叉车",
             "Color": "#D2691E",
-            "Category": "MobileMachinery"
+            "Category": "MobileMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "流机"
         },
         {
             "Id": "2a279155-e3f2-4b8c-98bd-44744ff42d19",
@@ -519,7 +647,9 @@
             "Type": "Incar",
             "Title": "2#挖机",
             "Color": "#D2691E",
-            "Category": "MobileMachinery"
+            "Category": "MobileMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "流机"
         },
         {
             "Id": "a39b105a-73e8-4807-a213-44bb11e38560",
@@ -527,7 +657,9 @@
             "Type": "Incar",
             "Title": "1#挖机",
             "Color": "#D2691E",
-            "Category": "MobileMachinery"
+            "Category": "MobileMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "流机"
         },
         {
             "Id": "f8212be7-2c1e-4365-8949-ff2c54b883e7",
@@ -535,7 +667,9 @@
             "Type": "Incar",
             "Title": "4#装船机",
             "Color": "#EE0000",
-            "Category": "LargeMachinery"
+            "Category": "LargeMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "大机"
         },
         {
             "Id": "078bf7f3-c65a-4dec-be71-ad146fcb2767",
@@ -543,7 +677,9 @@
             "Type": "Incar",
             "Title": "3#装船机",
             "Color": "#EE0000",
-            "Category": "LargeMachinery"
+            "Category": "LargeMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "大机"
         },
         {
             "Id": "ba61f358-62e3-4739-974d-3caf63b1cde3",
@@ -551,7 +687,9 @@
             "Type": "Incar",
             "Title": "2#装船机",
             "Color": "#EE0000",
-            "Category": "LargeMachinery"
+            "Category": "LargeMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "大机"
         },
         {
             "Id": "74df3154-8d09-48f1-b2a6-c11a0a872ffc",
@@ -559,7 +697,9 @@
             "Type": "Incar",
             "Title": "1#装船机",
             "Color": "#EE0000",
-            "Category": "LargeMachinery"
+            "Category": "LargeMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "大机"
         },
         {
             "Id": "b0278887-917a-4934-8ce2-738ea11b3bf5",
@@ -567,7 +707,9 @@
             "Type": "Incar",
             "Title": "8#卸船机",
             "Color": "#EE0000",
-            "Category": "LargeMachinery"
+            "Category": "LargeMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "大机"
         },
         {
             "Id": "387fc4d5-d587-4b38-b869-497296167d94",
@@ -575,7 +717,9 @@
             "Type": "Incar",
             "Title": "7#卸船机",
             "Color": "#EE0000",
-            "Category": "LargeMachinery"
+            "Category": "LargeMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "大机"
         },
         {
             "Id": "f069af8c-7fe2-4cc6-ab85-0996b189498c",
@@ -583,7 +727,9 @@
             "Type": "Incar",
             "Title": "6#卸船机",
             "Color": "#EE0000",
-            "Category": "LargeMachinery"
+            "Category": "LargeMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "大机"
         },
         {
             "Id": "af9aae14-ae11-429b-924a-794aced6f6b3",
@@ -591,7 +737,9 @@
             "Type": "Incar",
             "Title": "5#卸船机",
             "Color": "#EE0000",
-            "Category": "LargeMachinery"
+            "Category": "LargeMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "大机"
         },
         {
             "Id": "4b1c69bd-a77f-4316-a7f0-209c5991c65a",
@@ -599,7 +747,9 @@
             "Type": "Incar",
             "Title": "4#卸船机",
             "Color": "#EE0000",
-            "Category": "LargeMachinery"
+            "Category": "LargeMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "大机"
         },
         {
             "Id": "6280d7a1-6883-4aa8-8a26-ec26f5dc22c5",
@@ -607,7 +757,9 @@
             "Type": "Incar",
             "Title": "3#卸船机",
             "Color": "#EE0000",
-            "Category": "LargeMachinery"
+            "Category": "LargeMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "大机"
         },
         {
             "Id": "913b8061-fdb3-4ea9-9fb7-4ca4a118cb86",
@@ -615,7 +767,9 @@
             "Type": "Incar",
             "Title": "2#卸船机",
             "Color": "#EE0000",
-            "Category": "LargeMachinery"
+            "Category": "LargeMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "大机"
         },
         {
             "Id": "5eee66bc-8fb6-4a45-b1b3-b89acea168fa",
@@ -623,7 +777,9 @@
             "Type": "Incar",
             "Title": "1#卸船机",
             "Color": "#EE0000",
-            "Category": "LargeMachinery"
+            "Category": "LargeMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "大机"
         },
         {
             "Id": "7ef546ff-648a-414a-aaac-8dc3591d2554",
@@ -631,7 +787,9 @@
             "Type": "Incar",
             "Title": "1#装车机",
             "Color": "#EE0000",
-            "Category": "LargeMachinery"
+            "Category": "LargeMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "大机"
         },
         {
             "Id": "c8932e1c-043d-4107-9747-effed15c1e04",
@@ -639,7 +797,9 @@
             "Type": "Incar",
             "Title": "7#斗轮机",
             "Color": "#FFBA00",
-            "Category": "LargeMachinery"
+            "Category": "LargeMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "大机"
         },
         {
             "Id": "5274bb46-1126-4d80-ac44-fafad4e38f72",
@@ -647,7 +807,9 @@
             "Type": "Incar",
             "Title": "6#斗轮机",
             "Color": "#FFBA00",
-            "Category": "LargeMachinery"
+            "Category": "LargeMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "大机"
         },
         {
             "Id": "abf71232-ea14-43bc-b915-e652a0068b81",
@@ -655,7 +817,9 @@
             "Type": "Incar",
             "Title": "4#斗轮机",
             "Color": "#FFBA00",
-            "Category": "LargeMachinery"
+            "Category": "LargeMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "大机"
         },
         {
             "Id": "207d3cab-d99d-4220-9f85-c8e6fad10995",
@@ -663,7 +827,9 @@
             "Type": "Incar",
             "Title": "3#斗轮机",
             "Color": "#FFBA00",
-            "Category": "LargeMachinery"
+            "Category": "LargeMachinery",
+            "AssetStatus": "InUse",
+            "CategoryName": "大机"
         }
     ],
     "Message": null

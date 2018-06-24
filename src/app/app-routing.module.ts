@@ -6,7 +6,6 @@ const routes: Routes = [
   { path: 'monitor', loadChildren: './monitor/monitor.module#MonitorModule' },
   { path: 'editor', loadChildren: './modules/map-editor/map-editor.module#MapEditorModule' },
   { path: 'history', loadChildren: './modules/history/history.module#HistoryModule' },
-  { path: 'cmonitor', loadChildren: './modules/c-monitor/c-monitor.module#CMonitorModule' },
   { path: 'route', loadChildren: './modules/route/route.module#RouteModule' }
 ];
 
