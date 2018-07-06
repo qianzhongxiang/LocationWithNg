@@ -18,12 +18,17 @@ export class HistoryComponent implements OnInit, AfterViewInit {
     // })
     this.mapService.DrawRoute(this.tracker.GetFeature());
     this.historyService.Subscribe(ds => {
-      var array = ds.map(d => {
+      console.log(ds.length)
+      var array = ds.forEach(d => {
         d["localTime"] = new Date(d.CollectTime).toLocaleString();
+      });
+    }, undefined, ds => {
+      console.log(ds.length)
+      var array = ds.map(d => {
         return ol_proj.transform([d.X, d.Y], GetProjByEPSG(d.EPSG || 0), this.AppConfigService.Data.map.frontEndEpsg || 'EPSG:3857')
       }) as [number, number][];
-
-      this.tracker.AddPoints(array)
+      this.tracker.AddPoints(array);
+      this.tracker.Simplify(5);
     })
   }
   @ViewChild(OptionPanelComponent)

@@ -1,22 +1,37 @@
-import { BaseGraphic, GetGraphicFactory } from "cloudy-location";
+import { BaseGraphic, TextGraphic, STYLENAME, DeviceService } from "cloudy-location";
 
-class CellPhoneGraphic extends BaseGraphic {
-    constructor() {
-        super("green")
+class Text extends TextGraphic {
+    Style() {
+        let styles = super.Style();
+        styles.forEach(s => s[STYLENAME] = 'title')
+        return styles;
     }
 }
+let TextInstant = new Text();
+class CellPhoneGraphic extends BaseGraphic {
+    constructor() {
+        super()
+        this.Options.color = 'green'
+        this.Add(TextInstant)
+    }
+}
+
 class GPSTagGraphic extends BaseGraphic {
     constructor() {
-        super("red")
+        super()
+        this.Options.color = 'red'
+        this.Add(TextInstant)
     }
 }
 class IncarGraphic extends BaseGraphic {
     constructor() {
-        super("blue")
+        super()
+        this.Options.color = 'blue'
+        this.Add(TextInstant)
     }
 }
-export default function InitGraphics() {
-    GetGraphicFactory().SetComponent(CellPhoneGraphic, 'cellphone');
-    GetGraphicFactory().SetComponent(GPSTagGraphic, 'gpstag');
-    GetGraphicFactory().SetComponent(IncarGraphic, 'incar');
+export default function InitGraphics(DeviceService: DeviceService) {
+    DeviceService.AddGraphic(CellPhoneGraphic, 'cellphone');
+    DeviceService.AddGraphic(GPSTagGraphic, 'gpstag');
+    DeviceService.AddGraphic(IncarGraphic, 'incar');
 }

@@ -26,13 +26,9 @@ import InitGraphics from '../utilities/graphicInit';
     {
       provide: AssetService,
       useFactory: (appConfig: AppConfigService, httpClient: HttpClient) => {
-        let a = new AssetService(httpClient); a.Init(appConfig.Data["asset-profile-url"]);
+        let a = new AssetService(); a.Init(appConfig.Data["asset-profile-url"]);
         return a;
       }, deps: [AppConfigService, HttpClient]
-    }, {
-      provide: APP_INITIALIZER,
-      useFactory: (assetService: AssetService) => { return () => assetService.Load(); },
-      deps: [AssetService]
     },
     {
       provide: OlMapService,
@@ -43,8 +39,8 @@ import InitGraphics from '../utilities/graphicInit';
     }, {
       provide: DeviceService,
       useFactory: (appConfig: AppConfigService) => {
-        InitGraphics();
         let a = new DeviceService(); a.Init(appConfig.Data.map);
+        InitGraphics(a);
         return a;
       }, deps: [AppConfigService]
     },

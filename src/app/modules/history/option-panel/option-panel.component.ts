@@ -103,13 +103,15 @@ export class OptionPanelComponent extends Observerable implements OnInit {
     }
     this.historyService.Subscribe(undefined, (i) => {
       try {
-        new Ajax({ url: "/TK/GetInfos", data: { id: i.UniqueId, dateTime: i.CollectTime, type: i.Type }, contentType: "json" })
-          .done(d => {
-            if (d.IsSuccess && d.Data) {
-              this.Infos.splice(0, this.Infos.length);
-              this.Infos.push(...d.Data);
-            }
-          })
+        if (environment.production) {
+          new Ajax({ url: "/TK/GetInfos", data: { id: i.UniqueId, dateTime: i.CollectTime, type: i.Type }, contentType: "json" })
+            .done(d => {
+              if (d.IsSuccess && d.Data) {
+                this.Infos.splice(0, this.Infos.length);
+                this.Infos.push(...d.Data);
+              }
+            })
+        }
       }
       catch (e) {
         LogHelper.Error(e)
